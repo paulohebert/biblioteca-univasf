@@ -1,0 +1,38 @@
+
+/* Campo Normal */
+.field {
+    -fx-min-width: 300;
+    -fx-padding: 10 14 10 14;
+    -fx-border-radius: 14;
+}
+
+.field .text-field {
+	-fx-highlight-fill: #d7f7ff;
+}
+
+/* Campo Normal Focado */
+.field:focus-within {
+    -fx-border-color: -primary;
+}
+
+.field:focus-within .floating-text {
+    -fx-text-fill: -primary;
+}
+
+/* Campo Invalido */
+.field:invalid {
+    -fx-border-color: red;
+}
+
+.field:invalid .floating-text {
+	-fx-text-fill: red;
+}
+
+.field:invalid .text-field {
+	-fx-highlight-fill: #ffcad7;
+}
+
+/* Campo Invalido Focado */
+.field:invalid:focus-within  {
+	-fx-border-color: red;
+}

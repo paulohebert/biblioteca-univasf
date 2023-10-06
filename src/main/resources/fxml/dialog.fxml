@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import io.github.palexdev.materialfx.dialogs.MFXGenericDialog?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+
+<MFXGenericDialog xmlns="http://javafx.com/javafx"
+   xmlns:fx="http://javafx.com/fxml" fx:controller="com.univasf.biblioteca.gui.Dialog" showClose="true" showMinimize="false" showAlwaysOnTop="false" headerText="Test Dialog" onClose="#onDialogClose" prefHeight="240.0" prefWidth="320.0">
+   <content>
+      <StackPane>
+         <VBox alignment="CENTER" spacing="30">
+            <MFXTextField fx:id="txtCode" promptText="Enter code" HBox.hgrow="ALWAYS" minHeight="35" prefWidth="280">
+               <leadingIcon>
+                  <MFXFontIcon description="fas-shield" size="18" color="#2D75F4"/>
+               </leadingIcon>
+            </MFXTextField>
+            <Label style="-fx-text-fill: #ff6363;
+                        -fx-font-size: 15;
+                        -fx-font-weight: 900;
+                        -fx-alignment: top-right;
+                        -fx-text-alignment: center;" fx:id="txtMsg" visible="false"/>
+         </VBox>
+      </StackPane>
+   </content>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="30">
+         <MFXButton buttonType="FLAT" text="Confirm" onAction="#onConfirm"/>
+         <MFXButton buttonType="FLAT" text="Cancel" onAction="#onCancel"/>
+      </HBox>
+   </bottom>
+</MFXGenericDialog>

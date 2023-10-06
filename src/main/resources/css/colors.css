@@ -1,0 +1,8 @@
+* {
+    -primary: rgb(33, 150, 243);
+    -primary-50: rgba(33, 150, 243, 0.5);
+    -secondary: #00152d;
+
+    -primary-gradient: linear-gradient(to right bottom, -primary, -secondary);
+    -secondary-gradient: linear-gradient(to right bottom, -secondary, -primary);
+}

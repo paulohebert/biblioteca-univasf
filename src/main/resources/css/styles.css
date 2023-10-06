@@ -1,0 +1,13 @@
+
+@import 'colors.css';
+@import 'button.css';
+@import 'field.css';
+
+.rootPane {
+    -fx-background-color: -secondary;
+}
+
+.box {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+}
