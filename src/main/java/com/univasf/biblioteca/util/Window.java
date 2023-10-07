@@ -7,15 +7,26 @@ import com.univasf.biblioteca.App;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Window {
     private static Stage mainStage;
+    private static double width, height;
 
     public static Stage getStage() {
         return mainStage;
+    }
+
+    public static double getWidth() {
+        return width;
+    }
+
+    public static double getHeight() {
+        return height;
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -29,8 +40,12 @@ public class Window {
 
     public static void config(Stage stage, String name, String fxml) throws IOException {
         mainStage = stage;
+        Rectangle2D screen = Screen.getPrimary().getBounds();
+        width = screen.getWidth();
+        height = screen.getHeight();
+
         Parent root = loadFXML(fxml);
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, width, height);
         MFXThemeManager.addOn(scene, Themes.DEFAULT);
 
         scene.getStylesheets().add(App.class.getResource("/css/styles.css").toExternalForm());

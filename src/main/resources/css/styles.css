@@ -7,7 +7,7 @@
     -fx-background-color: -secondary;
 }
 
-.box {
+.container {
     -fx-background-color: white;
     -fx-background-radius: 20;
 }

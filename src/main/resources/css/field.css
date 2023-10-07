@@ -1,8 +1,7 @@
 
 /* Campo Normal */
 .field {
-    -fx-min-width: 300;
-    -fx-padding: 10 14 10 14;
+    -fx-padding: 10 14;
     -fx-border-radius: 14;
 }
 
