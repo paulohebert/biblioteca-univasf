@@ -4,8 +4,9 @@
     <groupId>com.univasf.biblioteca</groupId>
     <artifactId>biblioteca</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Biblioteca Univasf</name>
+    <description>Sistema de Gerenciamento de Biblioteca</description>
     <packaging>jar</packaging>
-    <name>Sistema de Biblioteca</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>17</maven.compiler.release>
