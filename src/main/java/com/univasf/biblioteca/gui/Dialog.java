@@ -6,83 +6,117 @@ import io.github.palexdev.materialfx.dialogs.MFXGenericDialog;
 import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.enums.ScrimPriority;
+
+import java.util.Map;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Map;
-
 public class Dialog {
-    private MFXStageDialog dialog;
+    private MFXStageDialog box;
 
-    public Dialog(Stage stage, Parent dialogContent) {
-        this.dialog = MFXGenericDialogBuilder.build((MFXGenericDialog) dialogContent)
-                .toStageDialogBuilder()
-                .initOwner(stage)
-                .initModality(Modality.NONE)
-                .setDraggable(true)
-                .setOwnerNode((Pane) stage.getScene().getRoot())
-                .setScrimPriority(ScrimPriority.WINDOW)
-                .setScrimStrength(0.75)
-                .setScrimOwner(true)
-                .get();
+    public static enum Type {
+        GENERIC, INFO, WARNING, ERROR
+    }
 
-        this.dialog.focusedProperty().addListener((observable, prev, curr) -> {
+    private void init(Event e) {
+        Stage stage = ((Stage) ((Node) e.getSource()).getScene().getWindow());
+
+        box = new MFXStageDialog();
+
+        box.initModality(Modality.NONE);
+        box.initOwner(stage);
+        box.setDraggable(true);
+        box.setScrimPriority(ScrimPriority.WINDOW);
+        box.setScrimStrength(0.75);
+        box.setScrimOwner(true);
+        box.setOwnerNode((Pane) stage.getScene().getRoot());
+
+        box.focusedProperty().addListener((observable, prev, curr) -> {
             if (!curr) {
-                dialog.close();
+                box.close();
             }
         });
-
-        ((MFXGenericDialog) dialogContent).addActions(
-                Map.entry(new MFXButton("OK"), (event) -> dialog.close()));
     }
 
-    public static Dialog makeError(Stage stage, String text, String title) {
+    private void setContent(Type type, String title, String text) {
         Text contentText = new Text(text);
         VBox content = new VBox(contentText);
 
         contentText.setFont(new Font(17));
         content.setAlignment(Pos.CENTER);
 
-        MFXGenericDialog dialogContent = MFXDialogs.error()
-                // .setContentText(text)
-                .setContent(content)
-                .setShowAlwaysOnTop(false)
-                .setShowMinimize(false)
-                .setHeaderText(title)
-                .get();
+        MFXGenericDialogBuilder dialogContent = null;
+        switch (type) {
+            case GENERIC:
+                dialogContent = MFXGenericDialogBuilder.build();
+                break;
+            case INFO:
+                dialogContent = MFXDialogs.info();
+                break;
+            case WARNING:
+                dialogContent = MFXDialogs.warn();
+                break;
+            case ERROR:
+                dialogContent = MFXDialogs.error();
+                break;
+        }
 
-        Dialog dialog = new Dialog(stage, dialogContent);
+        if (dialogContent != null) {
+            MFXGenericDialog dialog = dialogContent
+                    .setContent(content)
+                    .setShowAlwaysOnTop(false)
+                    .setShowMinimize(false)
+                    .setOnClose(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent e) {
+                            box.close();
+                        }
+                    })
+                    .setHeaderText(title)
+                    .get();
 
-        return dialog;
+            box.setContent(dialog);
+        }
     }
 
-    public static Dialog makeInfo(Stage stage, String text, String title) {
-        Text contentText = new Text(text);
-        VBox content = new VBox(contentText);
-
-        contentText.setFont(new Font(17));
-        content.setAlignment(Pos.CENTER);
-
-        MFXGenericDialog dialogContent = MFXDialogs.info()
-                // .setContentText(text)
-                .setContent(content)
-                .setShowAlwaysOnTop(false)
-                .setShowMinimize(false)
-                .setHeaderText(title)
-                .get();
-
-        Dialog dialog = new Dialog(stage, dialogContent);
-
-        return dialog;
+    @SafeVarargs
+    private void addActions(Map.Entry<Node, EventHandler<MouseEvent>>... actions) {
+        ((MFXGenericDialog) box.getContent()).addActions(actions);
     }
 
-    public void open() {
-        dialog.showDialog();
+    public Dialog(Type type, Event e, String title, String text) {
+        init(e);
+        setContent(type, title, text);
+
+        addActions(Map.entry(new MFXButton("OK"), event -> {
+            box.close();
+        }));
+    }
+
+    public Dialog(Type type, Event e, EventHandler<MouseEvent> eventConfirm, String title, String text) {
+        init(e);
+        setContent(type, title, text);
+
+        addActions(
+                Map.entry(new MFXButton("Confirmar"), event -> {
+                    eventConfirm.handle(event);
+                    box.close();
+                }),
+                Map.entry(new MFXButton("Cancelar"), event -> box.close()));
+    }
+
+    public void show() {
+        if (box != null) {
+            box.showDialog();
+        }
     }
 }
