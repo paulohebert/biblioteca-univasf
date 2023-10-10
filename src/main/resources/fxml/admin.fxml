@@ -1,80 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="Cadastrar">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Livro" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Excluir">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
+               <menus>
+                  <Menu mnemonicParsing="false" text="Cadastrar">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Livro" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Editar">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Livro" />
+                     </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Pesquisar">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Buscar Livro" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Sobre">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
+                  <Menu mnemonicParsing="false" text="Excluir">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Sobre">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
             </MenuBar>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefWidth="400.0" style="-fx-background-color: darkblue; -fx-background-radius: 0 20 20 0;" />
-                  <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                  <VBox spacing="10.0" styleClass="sidebar">
                      <children>
                         <VBox alignment="CENTER">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 100;" text="AREA DO ADMIN" />
-                              <HBox alignment="CENTER" spacing="40.0">
-                                 <children>
-                                    <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" depthLevel="LEVEL5" style="-fx-font-size: 40; -fx-background-radius: 20; -fx-background-color: #eee;" text="Cadastrar">
-                                       <graphic>
-                                          <FontIcon iconLiteral="fas-user-plus" iconSize="100" strokeWidth="0.0" wrappingWidth="104.0" />
-                                       </graphic>
-                                       <padding>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </padding>
-                                    </MFXButton>
-                                    <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" depthLevel="LEVEL5" style="-fx-font-size: 40; -fx-background-radius: 20; -fx-background-color: #eee;" text="Cadastrar">
-                                       <padding>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </padding>
-                                       <graphic>
-                                          <HBox alignment="CENTER">
-                                             <children>
-                                                <FontIcon iconLiteral="fas-book" iconSize="100" strokeWidth="0.0" wrappingWidth="104.0" />
-                                                <FontIcon iconLiteral="fas-plus" iconSize="55" strokeWidth="0.0" wrappingWidth="24.0" />
-                                             </children>
-                                          </HBox>
-                                       </graphic>
-                                    </MFXButton>
-                                 </children>
-                              </HBox>
+                              <FontIcon iconColor="#048be3" iconLiteral="fas-book-reader" iconSize="70" />
+                              <Text style="-fx-fill: white;" text="BIBLIOTECA">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Text>
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox spacing="14.0">
+                           <children>
+                              <Text style="-fx-fill: white;" text="Seja bem-vindo, Usuário XYZ!">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <MFXRectangleToggleNode onAction="#loadReportPanel" fx:id="reportBtn" maxWidth="400" selected="true">
+                                 <graphic>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <FontIcon iconLiteral="fas-chart-line" iconSize="30" />
+                                          <Text text="Relatório" />
+                                       </children>
+                                    </HBox>
+                                 </graphic>
+                              </MFXRectangleToggleNode>
+                              <Separator />
+                              <MFXRectangleToggleNode onAction="#loadBooksPanel" fx:id="booksBtn" maxWidth="400">
+                                 <graphic>
+                                    <HBox alignment="CENTER_LEFT" spacing="17.0">
+                                       <children>
+                                          <FontIcon iconLiteral="fas-book-open" iconSize="30" />
+                                          <Text text="Livros" />
+                                       </children>
+                                    </HBox>
+                                 </graphic>
+                              </MFXRectangleToggleNode>
+                              <MFXRectangleToggleNode onAction="#loadUsersPanel" fx:id="usersBtn" maxWidth="400">
+                                 <graphic>
+                                    <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                       <children>
+                                          <FontIcon iconLiteral="fas-users" iconSize="30" />
+                                          <Text text="Usuários" />
+                                       </children>
+                                    </HBox>
+                                 </graphic>
+                              </MFXRectangleToggleNode>
+                              <Separator />
+                              <MFXRectangleToggleNode fx:id="configBtn" maxWidth="400">
+                                 <graphic>
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                       <children>
+                                          <FontIcon iconLiteral="fas-cog" iconSize="30" />
+                                          <Text text="Configuração" />
+                                       </children>
+                                    </HBox>
+                                 </graphic>
+                              </MFXRectangleToggleNode>
+                              <MFXButton maxWidth="400" onAction="#signOut" rippleColor="red" styleClass="sign-out" text="Sair">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-sign-out-alt" iconSize="30" />
+                                 </graphic>
+                              </MFXButton>
+                           </children>
+                           <padding>
+                              <Insets bottom="0.0" left="0.0" right="20.0" top="0.0" />
+                           </padding>
                         </VBox>
                      </children>
+                  </VBox>
+                  <VBox fx:id="main" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </VBox>
                </children>
             </HBox>

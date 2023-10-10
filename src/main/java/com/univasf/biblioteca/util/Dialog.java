@@ -1,4 +1,4 @@
-package com.univasf.biblioteca.gui;
+package com.univasf.biblioteca.util;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.dialogs.MFXDialogs;

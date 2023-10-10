@@ -24,16 +24,22 @@
 
 ```sh
 mvn install
+#ou ./mvnw clean install (Linux)
+#ou mvnw.cmd clean install (Windows)
 ```
 
 ## Executar o Projeto
 
 ```sh
 mvn clean javafx:run
+#ou ./mvnw clean javafx:run (Linux)
+#ou mvnw.cmd clean javafx:run (Windows)
 ```
 
 ## Gerar Ambiente de Execução do Projeto
 
 ```sh
 mvn clean javafx:jlink
+#ou ./mvnw clean javafx:jlink (Linux)
+#ou mvnw.cmd clean javafx:jlink (Windows)
 ```

@@ -2,6 +2,7 @@
 @import 'colors.css';
 @import 'button.css';
 @import 'field.css';
+@import 'toggle.css';
 
 .rootPane {
     -fx-background-color: -secondary;
@@ -10,4 +11,34 @@
 .container {
     -fx-background-color: white;
     -fx-background-radius: 20;
+}
+
+.sidebar {
+    -fx-background-color: -secondary;
+    -fx-background-radius: 0 0 20 0;
+}
+
+.sign-out,
+.sign-out FontIcon,
+.sign-out:focused {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-fill: white;
+    -fx-font-size: 17;
+	-fx-padding: 10 20;
+    -fx-graphic-text-gap: 20;
+    -fx-alignment: baseline-left;
+}
+
+.sign-out:hover {
+    -fx-background-color: rgb(255, 59, 59);
+}
+
+.block {
+    -fx-background-color: -secondary;
+    -fx-background-radius: 20;
+}
+
+.block Text {
+    -fx-fill: whitesmoke;
 }

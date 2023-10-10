@@ -1,0 +1,38 @@
+.mfx-rectangle-toggle-node {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+.mfx-rectangle-toggle-node Text, 
+.mfx-rectangle-toggle-node FontIcon,
+.mfx-rectangle-toggle-node:hover:selected Text,
+.mfx-rectangle-toggle-node:hover:selected FontIcon {
+    -fx-font-size: 17;
+    -fx-fill: white;
+}
+
+.mfx-rectangle-toggle-node:hover {
+	-fx-background-color: white;
+}
+
+.mfx-rectangle-toggle-node:hover Text,
+.mfx-rectangle-toggle-node:hover FontIcon {
+	-fx-fill: -secondary;
+}
+
+.mfx-rectangle-toggle-node:selected,
+.mfx-rectangle-toggle-node:hover:selected,
+.mfx-rectangle-toggle-node:focused:selected {
+	-fx-background-color: -primary;
+	-fx-background-radius: 0 20 20 0;
+    -fx-border-color: transparent;
+}
+
+.mfx-rectangle-toggle-node HBox {
+	-fx-padding: 10 20;
+}
+
+.mfx-rectangle-toggle-node .mfx-ripple-generator {
+	-mfx-animation-speed: 1.4;
+	-mfx-paused: false;
+}

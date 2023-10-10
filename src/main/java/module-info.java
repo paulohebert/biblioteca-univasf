@@ -9,8 +9,8 @@ module com.univasf.biblioteca {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
 
-    opens com.univasf.biblioteca.gui to javafx.fxml;
+    opens com.univasf.biblioteca.controller to javafx.fxml;
 
     exports com.univasf.biblioteca;
-    exports com.univasf.biblioteca.gui;
+    exports com.univasf.biblioteca.controller;
 }
