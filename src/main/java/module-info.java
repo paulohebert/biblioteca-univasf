@@ -5,11 +5,12 @@ module com.univasf.biblioteca {
 
     requires MaterialFX;
 
-    requires org.kordamp.ikonli.core;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.ikonli.fontawesome5;
+    requires retrofit2;
+    requires retrofit2.converter.gson;
+    requires com.google.gson;
 
     opens com.univasf.biblioteca.controller to javafx.fxml;
+    opens com.univasf.biblioteca.util to com.google.gson;
 
     exports com.univasf.biblioteca;
     exports com.univasf.biblioteca.controller;
