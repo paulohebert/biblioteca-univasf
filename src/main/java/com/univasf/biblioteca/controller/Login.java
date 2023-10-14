@@ -6,8 +6,7 @@ import com.univasf.biblioteca.view.Window;
 
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
-
-import org.kordamp.ikonli.javafx.FontIcon;
+import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 
 import java.net.URL;
 import java.io.IOException;
@@ -52,7 +51,7 @@ public class Login implements Initializable {
 
         var children = container.getChildren();
 
-        ((FontIcon) children.get(0)).setIconSize((int) (width * 0.055));
+        ((MFXFontIcon) children.get(0)).setSize((int) (width * 0.055));
         ((Text) children.get(1)).setFont(new Font(10 + width * 0.02));
         ((HBox) children.get(4)).setPrefHeight(width * 0.03);
     }
@@ -90,12 +89,4 @@ public class Login implements Initializable {
             failureDialog.show();
         }
     }
-
-    /*
-     * @FXML
-     * public void close(Event e) {
-     * ((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
-     * }
-     */
-
 }

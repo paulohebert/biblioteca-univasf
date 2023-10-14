@@ -4,20 +4,27 @@
 }
 
 .mfx-rectangle-toggle-node Text, 
-.mfx-rectangle-toggle-node FontIcon,
-.mfx-rectangle-toggle-node:hover:selected Text,
-.mfx-rectangle-toggle-node:hover:selected FontIcon {
+.mfx-rectangle-toggle-node:hover:selected Text {
     -fx-font-size: 17;
     -fx-fill: white;
+}
+
+.mfx-rectangle-toggle-node MFXFontIcon,
+.mfx-rectangle-toggle-node:hover:selected MFXFontIcon {
+    -mfx-size: 25;
+	-mfx-color: white;
 }
 
 .mfx-rectangle-toggle-node:hover {
 	-fx-background-color: white;
 }
 
-.mfx-rectangle-toggle-node:hover Text,
-.mfx-rectangle-toggle-node:hover FontIcon {
+.mfx-rectangle-toggle-node:hover Text {
 	-fx-fill: -secondary;
+}
+
+.mfx-rectangle-toggle-node:hover MFXFontIcon {
+	-mfx-color: -secondary;
 }
 
 .mfx-rectangle-toggle-node:selected,
@@ -34,5 +41,5 @@
 
 .mfx-rectangle-toggle-node .mfx-ripple-generator {
 	-mfx-animation-speed: 1.4;
-	-mfx-paused: false;
+	 -mfx-paused: false;
 }

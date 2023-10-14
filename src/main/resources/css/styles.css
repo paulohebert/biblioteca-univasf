@@ -1,4 +1,3 @@
-
 @import 'colors.css';
 @import 'button.css';
 @import 'field.css';
@@ -19,15 +18,17 @@
 }
 
 .sign-out,
-.sign-out FontIcon,
 .sign-out:focused {
     -fx-background-color: transparent;
     -fx-text-fill: white;
-    -fx-fill: white;
     -fx-font-size: 17;
-	-fx-padding: 10 20;
+    -fx-padding: 10 20;
     -fx-graphic-text-gap: 20;
     -fx-alignment: baseline-left;
+}
+
+.sign-out MFXFontIcon {
+    -mfx-color: white;
 }
 
 .sign-out:hover {
