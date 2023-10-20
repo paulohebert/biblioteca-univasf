@@ -1,6 +1,6 @@
 # Sistema de Gerenciamento de Biblioteca
 
-## Funções
+## Recursos do Sistema
 
 - [x] Autenticação de Usuário e Administrador
 - [ ] Cadastro de Usuário (username, nome, e-mail e senha)
@@ -10,36 +10,98 @@
 - [ ] Devolução de Livros
 - [ ] Editar e Excluir informações de usuários
 - [ ] Relatórios de livros emprestados, reservados e disponíveis, bem como o histórico de empréstimos de um usuário
+- [x] Integração com Google Books
 
-## Dependências
+## Pré Requisitos
 
 - JDK 17
 - Maven
+- Docker (ou PostgreSQL)
+
+## Dependências
+
 - JavaFX
 - MaterialFX
 - Hibernate
-- PostgreSQL
 
 ## Instalar Dependências
 
+### Usando o Maven
+
 ```sh
-mvn install
-#ou ./mvnw clean install (Linux)
-#ou mvnw.cmd clean install (Windows)
+mvn clean install
+```
+
+### Usando o Maven Wrapper
+
+#### Linux
+
+```sh
+./mvnw clean install
+```
+
+#### Windows
+
+```sh
+mvnw.cmd clean install
+```
+
+## Docker
+
+### Iniciar Container PostgreSQL
+
+```sh
+docker compose up -d
+```
+### Acessar o pgAdmin
+
+`http://localhost:5050/`
+
+### Desligar Container PostgreSQL
+```sh
+docker compose down
 ```
 
 ## Executar o Projeto
 
+### Usando o Maven
+
 ```sh
 mvn clean javafx:run
-#ou ./mvnw clean javafx:run (Linux)
-#ou mvnw.cmd clean javafx:run (Windows)
+```
+
+### Usando o Maven Wrapper
+
+#### Linux
+
+```sh
+./mvnw clean javafx:run
+```
+
+#### Windows
+
+```sh
+mvnw.cmd clean javafx:run
 ```
 
 ## Gerar Ambiente de Execução do Projeto
 
+### Usando o Maven
+
 ```sh
 mvn clean javafx:jlink
-#ou ./mvnw clean javafx:jlink (Linux)
-#ou mvnw.cmd clean javafx:jlink (Windows)
+```
+
+### Usando o Maven Wrapper
+
+#### Linux
+
+```sh
+./mvnw clean javafx:jlink
+```
+
+#### Windows
+
+```sh
+mvnw.cmd clean javafx:jlink
 ```

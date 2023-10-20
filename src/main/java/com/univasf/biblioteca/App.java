@@ -11,7 +11,7 @@ import com.univasf.biblioteca.view.Window;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Window.init(stage, FXMLResource.LOGIN);
+        Window.init(stage, FXMLResource.ADMIN);
     }
 
     public static void main(String[] args) {

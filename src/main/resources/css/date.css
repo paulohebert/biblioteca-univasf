@@ -1,0 +1,66 @@
+.date-picker {
+    -fx-padding: 9 10;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+}
+
+.date-picker:focus-within {
+    -fx-border-color: -primary;
+}
+
+.date-picker:focus-within .floating-text {
+    -fx-text-fill: -primary;
+}
+
+.date-picker .text-field {
+	-fx-highlight-fill: #d7f7ff;
+}
+
+.date-picker .mfx-icon-wrapper .mfx-ripple-generator {
+	-mfx-ripple-color: #f1f4f6;
+}
+
+.date-picker:focus-within .icon {
+	-mfx-color: -primary;
+}
+
+.date-picker .date-picker-popup .left-arrow .mfx-ripple-generator,
+.date-picker .date-picker-popup .right-arrow .mfx-ripple-generator {
+	-mfx-ripple-color: #e9fbff;
+}
+
+.date-picker .date-picker-popup .months-combo:focus-within,
+.date-picker .date-picker-popup .years-combo:focus-within {
+	-fx-background-color: #f7f9fa;
+	-fx-text-fill: -primary;
+}
+
+.date-picker .date-picker-popup .months-combo .mfx-icon-wrapper .mfx-ripple-generator,
+.date-picker .date-picker-popup .years-combo .mfx-icon-wrapper .mfx-ripple-generator {
+	-mfx-ripple-color: #e9f3ff;
+}
+
+.date-picker .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:hover,
+.date-picker .date-picker-popup .years-combo .virtual-flow .mfx-combo-box-cell:hover {
+	-fx-background-color: #f7f8fa;
+}
+
+.date-picker .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:selected,
+.date-picker .date-picker-popup .years-combo .virtual-flow .mfx-combo-box-cell:selected {
+	-fx-background-color: #f7f8fa;
+}
+
+.date-picker .date-picker-popup .months-combo .virtual-flow .mfx-combo-box-cell:selected .label,
+.date-picker .date-picker-popup .years-combo .virtual-flow .mfx-combo-box-cell:selected .label {
+	-fx-text-fill: -primary;
+}
+
+.mfx-date-cell:current {
+	-fx-text-fill: -primary;
+	-fx-background-color: #f7f8f9;
+}
+
+.mfx-date-cell:selected {
+	-fx-text-fill: white;
+	-fx-background-color: -primary;
+}

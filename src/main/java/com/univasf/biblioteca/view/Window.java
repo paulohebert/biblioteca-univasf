@@ -11,8 +11,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -57,6 +59,25 @@ public class Window {
         mainStage.setMaximized(true);
         mainStage.setScene(scene);
         mainStage.show();
+    }
+
+    public static Stage create(FXMLResource fxml, double width, double height) throws IOException {
+        Stage newStage = new Stage();
+        newStage.setTitle(fxml.getTitle());
+
+        Parent root = loadFXML(fxml);
+        Scene scene = new Scene(root, width, height);
+        MFXThemeManager.addOn(scene, Themes.DEFAULT);
+        scene.getStylesheets().add(App.class.getResource("/css/styles.css").toExternalForm());
+
+        newStage.setScene(scene);
+
+        newStage.setX(mainStage.getX() + (Window.width - width) / 2);
+        newStage.setY(mainStage.getY() + (Window.height - height) / 2);
+
+        newStage.show();
+
+        return newStage;
     }
 
     public static void change(FXMLResource fxml) throws IOException {

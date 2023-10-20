@@ -16,7 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
+<AnchorPane stylesheets="@../css/styles.css"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,12 +26,12 @@
                <menus>
                   <Menu mnemonicParsing="false" text="Cadastrar">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Livro" />
-                        <MenuItem mnemonicParsing="false" onAction="#loadReportPanel" text="Usuario">
+                        <MenuItem mnemonicParsing="false" onAction="#addBook" text="Livro">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="ANY" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Usuario" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Editar">

@@ -29,3 +29,41 @@
     -mfx-ripple-color: -primary-50;
     -mfx-auto-clip: true;
 }
+
+.button-secondary,
+.button-secondary:hover,
+.button-secondary:focused {
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-background-color: -secondary;
+    -fx-text-fill: whitesmoke;
+    -fx-padding: 10 70;
+}
+
+.button-secondary .mfx-ripple-generator {
+    -mfx-ripple-color: derive(-secondary, 70%);
+    -mfx-auto-clip: true;
+}
+
+.button-cancel,
+.button-cancel:hover,
+.button-cancel:focused {
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-border-style: solid;
+    -fx-border-color: derive(orange, -5%);
+    -fx-background-color: transparent;
+    -fx-text-fill: derive(orange, -5%);
+    -fx-padding: 10 70;
+}
+
+.button-cancel:hover,
+.button-cancel:focused {
+	-fx-text-fill: derive(orange, 90%);
+	-fx-background-color: derive(orange, 10%);
+}
+
+.button-cancel .mfx-ripple-generator {
+    -mfx-ripple-color: derive(orange, 40%);
+    -mfx-auto-clip: true;
+}

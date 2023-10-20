@@ -1,15 +1,15 @@
 package com.univasf.biblioteca.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.univasf.biblioteca.util.Dialog;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
 
 import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode;
 import io.github.palexdev.materialfx.utils.ToggleButtonsUtil;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -79,7 +79,7 @@ public class Admin implements Initializable {
     @FXML
     public void loadBooksPanel(Event e) throws IOException {
         System.out.println("BOOKS");
-        Window.changeNode(main, FXMLResource.REPORT);
+        Window.changeNode(main, FXMLResource.BOOKS);
     }
 
     @FXML
@@ -87,4 +87,10 @@ public class Admin implements Initializable {
         System.out.println("USERS");
         Window.changeNode(main, FXMLResource.LOGIN);
     }
+
+    @FXML
+    public void addBook() throws IOException {
+        Window.create(FXMLResource.ADD_BOOK, 700, 500);
+    }
+
 }

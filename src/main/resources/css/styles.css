@@ -2,6 +2,8 @@
 @import 'button.css';
 @import 'field.css';
 @import 'toggle.css';
+@import 'date.css';
+@import 'textarea.css';
 
 .rootPane {
     -fx-background-color: -secondary;

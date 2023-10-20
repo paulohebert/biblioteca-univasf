@@ -1,0 +1,139 @@
+.text-area {
+	-fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #a0a0a0;
+    -fx-border-radius: 14;
+
+    -fx-padding: 5;
+    -fx-font-size: 14;
+    -fx-font-family: "Open Sans Regular";
+}
+
+.text-area:focus-within {
+    -fx-border-color: -primary;
+	-fx-background-insets: 2;
+	-fx-border-width: 1.5;
+	-fx-border-insets: -0.5;
+}
+
+.text-area .content {
+    -fx-text-fill: black;
+    -fx-border-color: transparent; 
+    -fx-border-style: none;
+}
+
+.text-area .content {
+	-fx-background-color: white;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+}
+
+.text-area:focused .content {
+	-fx-background-color: white;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+}
+
+.text-area .scroll-pane {
+	-fx-background-color: white;
+
+	-track-color: rgb(230, 230, 230);
+	-thumb-color: rgb(137, 137, 137);
+	-thumb-hover-color: rgb(89, 88, 91);
+}
+
+.text-area:focused .scroll-pane {
+	-fx-background-color: white;
+}
+
+.text-area .scroll-pane > .corner {
+	-fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport {
+	-fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .scroll-bar,
+.text-area .scroll-pane .scroll-bar .decrement-arrow,
+.text-area .scroll-pane .scroll-bar .increment-arrow {
+	-fx-pref-width: 0;
+	-fx-pref-height: 0;
+}
+
+
+.text-area .scroll-pane .scroll-bar:horizontal .increment-button,
+.text-area .scroll-pane .scroll-bar:horizontal .decrement-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0.0em;
+	-fx-padding: 0.0 0.0 10.0 0.0;
+}
+
+.text-area .scroll-pane .scroll-bar:vertical .increment-button,
+.text-area .scroll-pane .scroll-bar:vertical .decrement-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0.0em;
+	-fx-padding: 0.0 10.0 0.0 0.0;
+
+}
+
+.text-area .scroll-pane .scroll-bar .increment-arrow,
+.text-area .scroll-pane .scroll-bar .decrement-arrow {
+	-fx-shape: " ";
+	-fx-padding: 0.15em 0.0;
+}
+
+.text-area .scroll-pane .scroll-bar:horizontal .increment-arrow,
+.text-area .scroll-pane .scroll-bar:horizontal .decrement-arrow {
+	-fx-shape: " ";
+	-fx-padding: 0.0 0.05em;
+}
+
+.text-area .scroll-pane .scroll-bar:vertical .increment-arrow,
+.text-area .scroll-pane .scroll-bar:vertical .decrement-arrow {
+	-fx-shape: " ";
+	-fx-padding: 0.0 0.05em;
+}
+
+.text-area .scroll-pane .scroll-bar:horizontal .track {
+	-fx-background-color: -track-color;
+	-fx-border-color: transparent;
+	-fx-background-radius: 2.0em;
+	-fx-border-radius: 2.0em;
+	-fx-background-insets: 3;
+}
+
+.text-area .scroll-pane .scroll-bar:vertical .track {
+	-fx-background-color: -track-color;
+	-fx-border-color: transparent;
+	-fx-background-radius: 2.0em;
+	-fx-border-radius: 2.0em;
+	-fx-background-insets: 3;
+}
+
+.text-area .scroll-pane .scroll-bar .decrement-arrow,
+.text-area .scroll-pane .scroll-bar .increment-arrow {
+	-fx-pref-width: 0;
+	-fx-pref-height: 0;
+}
+
+.text-area .scroll-pane .scroll-bar:vertical {
+	-fx-background-color: transparent;
+	-fx-pref-width: 12;
+	-fx-pref-height: 12;
+	-fx-padding: 5 0.5 5 0.5;
+}
+
+.text-area .scroll-pane .scroll-bar:horizontal .thumb,
+.text-area .scroll-pane .scroll-bar:vertical .thumb {
+	-fx-background-color: -thumb-color;
+	-fx-background-insets: 2.0, 0.0, 0.0;
+	-fx-background-radius: 2.0em;
+}
+
+.text-area .scroll-pane .scroll-bar:horizontal .thumb:hover,
+.text-area .scroll-pane .scroll-bar:vertical .thumb:hover {
+	-fx-background-color: -thumb-hover-color;
+	-fx-background-insets: 1.5, 0.0, 0.0;
+	-fx-background-radius: 2.0em;
+}

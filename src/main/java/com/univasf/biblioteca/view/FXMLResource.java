@@ -4,7 +4,10 @@ public enum FXMLResource {
     LOGIN("/fxml/login.fxml", "Login"),
     ADMIN("/fxml/admin.fxml", "Admin"),
     USER("/fxml/user.fxml", "Usuário"),
-    REPORT("/fxml/report.fxml", "Relatório");
+    REPORT("/fxml/report.fxml", "Relatório"),
+    ADD_USER("/fxml/addUser.fxml", "Cadastrar Usuário"),
+    ADD_BOOK("/fxml/addBook.fxml", "Cadastrar Livro"),
+    BOOKS("/fxml/books.fxml", "Livros");
 
     private String path;
     private String title;
