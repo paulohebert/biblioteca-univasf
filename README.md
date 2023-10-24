@@ -24,28 +24,6 @@
 - MaterialFX
 - Hibernate
 
-## Instalar Dependências
-
-### Usando o Maven
-
-```sh
-mvn clean install
-```
-
-### Usando o Maven Wrapper
-
-#### Linux
-
-```sh
-./mvnw clean install
-```
-
-#### Windows
-
-```sh
-mvnw.cmd clean install
-```
-
 ## Docker
 
 ### Iniciar Container PostgreSQL
@@ -82,26 +60,4 @@ mvn clean javafx:run
 
 ```sh
 mvnw.cmd clean javafx:run
-```
-
-## Gerar Ambiente de Execução do Projeto
-
-### Usando o Maven
-
-```sh
-mvn clean javafx:jlink
-```
-
-### Usando o Maven Wrapper
-
-#### Linux
-
-```sh
-./mvnw clean javafx:jlink
-```
-
-#### Windows
-
-```sh
-mvnw.cmd clean javafx:jlink
 ```
