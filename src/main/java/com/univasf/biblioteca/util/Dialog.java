@@ -8,6 +8,9 @@ import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.enums.ScrimPriority;
 
 import java.util.Map;
+
+import com.univasf.biblioteca.view.Window;
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -28,7 +31,7 @@ public class Dialog {
     }
 
     private void init(Event e) {
-        Stage stage = ((Stage) ((Node) e.getSource()).getScene().getWindow());
+        Stage stage = e != null ? ((Stage) ((Node) e.getSource()).getScene().getWindow()) : Window.getStage();
 
         box = new MFXStageDialog();
 
