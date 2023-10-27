@@ -1,5 +1,7 @@
 package com.univasf.biblioteca.controller;
 
+import com.univasf.biblioteca.model.Usuario;
+import com.univasf.biblioteca.service.UserService;
 import com.univasf.biblioteca.util.Dialog;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
@@ -28,28 +30,28 @@ public class Login implements Initializable {
     private static final PseudoClass INVALID_PSEUDO_CLASS = PseudoClass.getPseudoClass("invalid");
 
     @FXML
-    private MFXTextField cpf;
+    private MFXTextField cpfUsername;
     @FXML
     private MFXPasswordField password;
     @FXML
     private ImageView univasfLogo;
     @FXML
-    private VBox container;
+    private VBox box;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         double width = Window.getWidth();
 
-        cpf.setPrefWidth(140 + width * 0.1);
+        cpfUsername.setPrefWidth(140 + width * 0.1);
         password.setPrefWidth(140 + width * 0.1);
 
         univasfLogo.setFitWidth(200 + width * 0.1);
 
-        container.setPrefWidth(200 + width * 0.14);
+        box.setPrefWidth(200 + width * 0.14);
         double padding = width * 0.02;
-        container.setPadding(new Insets(padding, padding / 2, padding, padding / 2));
+        box.setPadding(new Insets(padding, padding / 2, padding, padding / 2));
 
-        var children = container.getChildren();
+        var children = box.getChildren();
 
         ((MFXFontIcon) children.get(0)).setSize((int) (width * 0.055));
         ((Text) children.get(1)).setFont(new Font(10 + width * 0.02));
@@ -57,34 +59,39 @@ public class Login implements Initializable {
     }
 
     private void validate(boolean valid) {
-        cpf.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, !valid);
+        cpfUsername.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, !valid);
         password.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, !valid);
     }
 
     @FXML
     public void signIn(Event e) throws IOException {
-        if (password.getText().equals("123") && cpf.getText().equals("123")) {
-            validate(true);
+        Usuario user;
+        try {
+            long cpfLong = Long.parseLong(cpfUsername.getText());
+            user = UserService.getUser(cpfLong);
+        } catch (NumberFormatException numErr) {
+            try {
+                user = UserService.getUserByUserName(cpfUsername.getText());
+            } catch (Exception err) {
+                user = null;
+            }
+        }
 
-            Dialog signOutDialog = new Dialog(Dialog.Type.INFO, e, "Login Realizado com sucesso",
-                    "Seja bem-vindo, Usuário XYZ!");
+        if (user != null && UserService.checkPassword(password.getText(), user)) {
+            Dialog signInDialog = new Dialog(Dialog.Type.INFO, e, "Login Realizado com sucesso",
+                    "Seja bem-vindo, " + user.getNome() + "!");
+            signInDialog.show();
 
-            signOutDialog.show();
-
-            Window.change(FXMLResource.ADMIN);
-        } else if (password.getText().equals("321") && cpf.getText().equals("321")) {
-            validate(true);
-
-            Dialog signOutDialog = new Dialog(Dialog.Type.INFO, e, "Login Realizado com sucesso",
-                    "Seja bem-vindo, Usuário XYZ!");
-
-            signOutDialog.show();
-
-            Window.change(FXMLResource.USER);
+            if (user.getTipoAdministrador()) {
+                Window.change(FXMLResource.ADMIN);
+            } else {
+                Window.change(FXMLResource.USER);
+            }
         } else {
             validate(false);
 
-            Dialog failureDialog = new Dialog(Dialog.Type.ERROR, e, "Falha no login", "A Senha ou CPF são Inválidos");
+            Dialog failureDialog = new Dialog(Dialog.Type.ERROR, e, "Falha no login",
+                    "A Senha ou CPF são Inválidos");
 
             failureDialog.show();
         }

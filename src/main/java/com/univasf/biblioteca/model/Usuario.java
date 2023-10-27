@@ -1,5 +1,6 @@
 package com.univasf.biblioteca.model;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,7 +27,7 @@ public class Usuario {
         this.cpf = cpf;
         this.nome = nome;
         this.nome_usuario = nome_usuario;
-        // this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+        this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
         this.tipo_administrador = tipo_administrador;
     }
 
@@ -37,7 +38,7 @@ public class Usuario {
         this.email = email;
         this.endereco = endereco;
         this.nome_usuario = nome_usuario;
-        // this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+        this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
         this.tipo_administrador = tipo_administrador;
     }
 
@@ -53,9 +54,8 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        // String hashedPassword = BCrypt.withDefaults().hashToString(12,
-        // senha.toCharArray());
-        // this.senha = hashedPassword;
+        String hashedPassword = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+        this.senha = hashedPassword;
     }
 
     // ........................................................................//

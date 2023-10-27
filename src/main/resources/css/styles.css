@@ -9,9 +9,18 @@
     -fx-background-color: -secondary;
 }
 
-.container {
+.box-white {
     -fx-background-color: white;
     -fx-background-radius: 20;
+}
+
+.box {
+    -fx-background-color: -secondary;
+    -fx-background-radius: 20;
+}
+
+.box Text {
+    -fx-fill: whitesmoke;
 }
 
 .sidebar {
@@ -35,13 +44,4 @@
 
 .sign-out:hover {
     -fx-background-color: rgb(255, 59, 59);
-}
-
-.block {
-    -fx-background-color: -secondary;
-    -fx-background-radius: 20;
-}
-
-.block Text {
-    -fx-fill: whitesmoke;
 }

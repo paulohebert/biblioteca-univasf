@@ -24,10 +24,10 @@
                      <Image url="@../img/univasf-logo-white-blue.png" />
                   </image>
                </ImageView>
-               <VBox fx:id="container" styleClass="container" alignment="CENTER" spacing="20">
+               <VBox fx:id="box" styleClass="box-white" alignment="CENTER" spacing="20">
                   <MFXFontIcon color="#048be3" description="fas-book-open-reader" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA"/>
-                  <MFXTextField fx:id="cpf" floatingText="CPF" styleClass="field" />
+                  <MFXTextField fx:id="cpfUsername" floatingText="CPF ou Username" styleClass="field" />
                   <MFXPasswordField fx:id="password" floatingText="SENHA" styleClass="field" />
                   <HBox alignment="TOP_CENTER" spacing="40.0">
                      <children>

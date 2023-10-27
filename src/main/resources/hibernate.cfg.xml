@@ -12,6 +12,7 @@
 
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.hbm2ddl.import_files">import.sql</property>
 
         <mapping class="com.univasf.biblioteca.model.Livro"/>
         <mapping class="com.univasf.biblioteca.model.Usuario"/>
