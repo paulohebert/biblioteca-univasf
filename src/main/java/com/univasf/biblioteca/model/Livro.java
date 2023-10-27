@@ -39,8 +39,47 @@ public class Livro {
         this.descricao = descricao;
 
     }
+    
+// ........................................................................//
+    // Metodos Set
 
-    // ........................................................................//
+    public void setISBN(Long iSBN) {
+        ISBN = iSBN;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
+    }
+
+    public void setAno_publicacao(int ano_publicacao) {
+        this.ano_publicacao = ano_publicacao;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setNumero_paginas(int numero_paginas) {
+        this.numero_paginas = numero_paginas;
+    }
+
+    public void setNumero_copias_totais(int numero_copias_totais) {
+        this.numero_copias_totais = numero_copias_totais;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+// ........................................................................//
     // Metodos Get
 
     public String getTitulo() {
