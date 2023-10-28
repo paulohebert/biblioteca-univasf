@@ -1,1 +1,1 @@
-INSERT INTO usuario (cpf, email, endereco, nome, nome_usuario, senha, tipo_administrador) VALUES (0, 'admin@admin.com', '', 'Administrador', 'admin', '$2a$12$0.ZOQmgDdspUAZlxvtdvrOeC7xwiiXTQn2SFx2TrVKU7GUJuAA.my', true);
+INSERT INTO users (cpf, email, endereco, nome, nome_usuario, senha, tipo_administrador) VALUES (0, 'admin@admin.com', '', 'Administrador', 'admin', '$2a$12$0.ZOQmgDdspUAZlxvtdvrOeC7xwiiXTQn2SFx2TrVKU7GUJuAA.my', true);

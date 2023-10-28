@@ -4,9 +4,11 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class Usuario {
+@Table(name = "users")
+public class User {
     @Id
     private Long cpf;
     private String nome;
@@ -19,10 +21,10 @@ public class Usuario {
 
     // ........................................................................//
     // Construtores
-    public Usuario() {
+    public User() {
     }
 
-    public Usuario(Long cpf, String nome, String nome_usuario, String senha,
+    public User(Long cpf, String nome, String nome_usuario, String senha,
             Boolean tipo_administrador) {
         this.cpf = cpf;
         this.nome = nome;
@@ -31,7 +33,7 @@ public class Usuario {
         this.tipo_administrador = tipo_administrador;
     }
 
-    public Usuario(Long cpf, String nome, String email, String endereco,
+    public User(Long cpf, String nome, String email, String endereco,
             String nome_usuario, String senha, Boolean tipo_administrador) {
         this.cpf = cpf;
         this.nome = nome;

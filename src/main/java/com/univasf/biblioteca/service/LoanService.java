@@ -2,15 +2,15 @@ package com.univasf.biblioteca.service;
 
 import java.util.List;
 import org.hibernate.query.Query;
-import com.univasf.biblioteca.model.Emprestimo;
+import com.univasf.biblioteca.model.Loan;
 import com.univasf.biblioteca.util.HibernateUtil;
 import org.hibernate.Session;
 
-public class EmprestimoService {
+public class LoanService {
 
     // ........................................................................//
     // Salva um emprestimo no banco de dados
-    public static void saveEmprestimo(Emprestimo emprestimo) {
+    public static void saveEmprestimo(Loan emprestimo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -23,13 +23,13 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista com todos os emprestimos
-    public static List<Emprestimo> getAllEmprestimos() {
+    public static List<Loan> getAllEmprestimos() {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
-            List<Emprestimo> emprestimos = query.list();
+            Query<Loan> query = session.createQuery(hql, Loan.class);
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -39,11 +39,11 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna um emprestimo usando seu id como parametro
-    public static Emprestimo getEmprestimo(Long id) {
+    public static Loan getEmprestimo(Long id) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Emprestimo emprestimo = session.get(Emprestimo.class, id);
+            Loan emprestimo = session.get(Loan.class, id);
             session.getTransaction().commit();
             return emprestimo;
         } finally {
@@ -53,7 +53,7 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Atualiza um emprestimo no banco de dados
-    public static void updateEmprestimo(Emprestimo emprestimo) {
+    public static void updateEmprestimo(Loan emprestimo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -71,7 +71,7 @@ public class EmprestimoService {
         try {
             session.beginTransaction();
             String hql = "DELETE FROM Emprestimo";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {
@@ -85,7 +85,7 @@ public class EmprestimoService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Emprestimo emprestimo = session.get(Emprestimo.class, id);
+            Loan emprestimo = session.get(Loan.class, id);
             if (emprestimo != null) {
                 session.remove(emprestimo);
                 session.getTransaction().commit();
@@ -97,14 +97,14 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista de todos os emprestimos relacionados a um cpf
-    public static List<Emprestimo> getEmprestimosPorCPF(Long cpf) {
+    public static List<Loan> getEmprestimosPorCPF(Long cpf) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE usuario.cpf = :cpf";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("cpf", cpf);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -114,16 +114,16 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista com os emprestimos em aberto relacionados a um cpf
-    public static List<Emprestimo> getEmprestimosAbertosPorCPF(Long cpf) {
+    public static List<Loan> getEmprestimosAbertosPorCPF(Long cpf) {
         // Get a session
         Session session = HibernateUtil.getSession();
         try {
             // Use the session to get all Emprestimos with the given cpf
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE usuario.cpf = :cpf AND data_devolucao IS NULL";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("cpf", cpf);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -134,14 +134,14 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista de todos os emprestimos relacionados a um nome de usuario
-    public static List<Emprestimo> getEmprestimosNomeUsuario(String nome_usuario) {
+    public static List<Loan> getEmprestimosNomeUsuario(String nome_usuario) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE usuario.nome_usuario = :nome_usuario";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("nome_usuario", nome_usuario);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -152,14 +152,14 @@ public class EmprestimoService {
     // ........................................................................//
     // Retorna uma lista com os emprestimos em aberto relacionados a um nome de
     // usuario
-    public static List<Emprestimo> getEmprestimosAbertosNomeUsuario(String nome_usuario) {
+    public static List<Loan> getEmprestimosAbertosNomeUsuario(String nome_usuario) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE usuario.nome_usuario = :nome_usuario AND data_devolucao IS NULL";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("nome_usuario", nome_usuario);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -169,14 +169,14 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista com todos os emprestimo relacionados a um livro
-    public static List<Emprestimo> getEmprestimosPorLivro(Long ISBN_Livro) {
+    public static List<Loan> getEmprestimosPorLivro(Long ISBN_Livro) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -186,14 +186,14 @@ public class EmprestimoService {
 
     // ........................................................................//
     // Retorna uma lista de emprestimos em aberto relacionados a um livro
-    public static List<Emprestimo> getEmprestimosAbertosPorLivro(Long ISBN_Livro) {
+    public static List<Loan> getEmprestimosAbertosPorLivro(Long ISBN_Livro) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
         } finally {
@@ -208,9 +208,9 @@ public class EmprestimoService {
         try {
             session.beginTransaction();
             String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
-            Query<Emprestimo> query = session.createQuery(hql, Emprestimo.class);
+            Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
-            List<Emprestimo> emprestimos = query.list();
+            List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos.size();
         } finally {

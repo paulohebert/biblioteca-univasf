@@ -1,21 +1,23 @@
 package com.univasf.biblioteca.model;
 
 import jakarta.persistence.*;
-import com.univasf.biblioteca.service.EmprestimoService;
+import com.univasf.biblioteca.service.LoanService;
 import java.util.Date;
+import java.util.UUID;
 import java.util.Calendar;
 
 @Entity
-public class Emprestimo {
+@Table(name = "loans")
+public class Loan {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @ManyToOne
     @JoinColumn(name = "cpf_usuario", nullable = false)
-    private Usuario usuario;
+    private User usuario;
     @ManyToOne
     @JoinColumn(name = "id_livro", nullable = false)
-    private Livro livro;
+    private Book livro;
     @Temporal(TemporalType.DATE)
     private Date data_emprestimo;
     @Temporal(TemporalType.DATE)
@@ -25,10 +27,10 @@ public class Emprestimo {
 
     // ........................................................................//
     // Construtores
-    public Emprestimo() {
+    public Loan() {
     }
 
-    public Emprestimo(Usuario usuario, Livro livro) {
+    public Loan(User usuario, Book livro) {
         Calendar c = Calendar.getInstance();
 
         this.usuario = usuario;
@@ -45,7 +47,7 @@ public class Emprestimo {
 
     // ........................................................................//
     // Metodos gets e sets
-    public Long getId() {
+    public UUID getId() {
         return this.id;
     }
 
@@ -57,11 +59,11 @@ public class Emprestimo {
         return this.data_devolucao_maxima;
     }
 
-    public Livro getLivro_emprestimo() {
+    public Book getLivro_emprestimo() {
         return this.livro;
     }
 
-    public Usuario getUsuario_emprestimo() {
+    public User getUsuario_emprestimo() {
         return this.usuario;
     }
 
@@ -72,7 +74,7 @@ public class Emprestimo {
         c.setTime(this.data_devolucao_maxima);
         c.add(Calendar.DATE, 7);
         this.data_devolucao_maxima = c.getTime();
-        EmprestimoService.updateEmprestimo(this);
+        LoanService.updateEmprestimo(this);
     }
 
     // ........................................................................//
@@ -81,7 +83,7 @@ public class Emprestimo {
         if (this.data_devolucao == null) {
             Calendar c = Calendar.getInstance();
             this.data_devolucao = c.getTime();
-            EmprestimoService.updateEmprestimo(this);
+            LoanService.updateEmprestimo(this);
         } else {
             System.out.println("Livro já Devolvido");
         }

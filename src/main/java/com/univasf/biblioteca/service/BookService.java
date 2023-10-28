@@ -2,15 +2,15 @@ package com.univasf.biblioteca.service;
 
 import java.util.List;
 import org.hibernate.query.Query;
-import com.univasf.biblioteca.model.Livro;
+import com.univasf.biblioteca.model.Book;
 import com.univasf.biblioteca.util.HibernateUtil;
 import org.hibernate.Session;
 
-public class LivroService {
+public class BookService {
 
     // ........................................................................//
     // Salva um livro no banco de dados
-    public static void saveLivro(Livro livro) {
+    public static void saveLivro(Book livro) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -23,13 +23,13 @@ public class LivroService {
 
     // ........................................................................//
     // Retorna todos os livros
-    public static List<Livro> getAllLivros() {
+    public static List<Book> getAllLivros() {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Livro";
-            Query<Livro> query = session.createQuery(hql, Livro.class);
-            List<Livro> livros = query.list();
+            Query<Book> query = session.createQuery(hql, Book.class);
+            List<Book> livros = query.list();
             session.getTransaction().commit();
             return livros;
         } finally {
@@ -39,11 +39,11 @@ public class LivroService {
 
     // ........................................................................//
     // Recebe o ISBN e retorna o livro correspondente
-    public static Livro getLivro(Long ISBN) {
+    public static Book getLivro(Long ISBN) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Livro livro = session.get(Livro.class, ISBN);
+            Book livro = session.get(Book.class, ISBN);
             session.getTransaction().commit();
             return livro;
         } finally {
@@ -53,7 +53,7 @@ public class LivroService {
 
     // ........................................................................//
     // Atualiza um livro no banco de dados
-    public static void updateLivro(Livro livro) {
+    public static void updateLivro(Book livro) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -71,7 +71,7 @@ public class LivroService {
         try {
             session.beginTransaction();
             String hql = "FROM Livro";
-            Query<Livro> query = session.createQuery(hql, Livro.class);
+            Query<Book> query = session.createQuery(hql, Book.class);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {
@@ -85,7 +85,7 @@ public class LivroService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Livro livro = session.get(Livro.class, ISBN);
+            Book livro = session.get(Book.class, ISBN);
             if (livro != null) {
                 session.remove(livro);
                 session.getTransaction().commit();
@@ -97,14 +97,14 @@ public class LivroService {
 
     // ........................................................................//
     // Retorna uma lista de livros por titulo
-    public static List<Livro> getLivrosPorTitulo(String titulo) {
+    public static List<Book> getLivrosPorTitulo(String titulo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Livro WHERE lower(titulo) LIKE lower(:titulo)";
-            Query<Livro> query = session.createQuery(hql, Livro.class);
+            Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("titulo", "%" + titulo + "%");
-            List<Livro> livros = query.list();
+            List<Book> livros = query.list();
             session.getTransaction().commit();
             return livros;
         } finally {
@@ -114,14 +114,14 @@ public class LivroService {
 
     // ........................................................................//
     // Retorna uma lista de livros por autor
-    public static List<Livro> getLivrosPorAutor(String autor) {
+    public static List<Book> getLivrosPorAutor(String autor) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Livro WHERE lower(autor) LIKE lower(:autor)";
-            Query<Livro> query = session.createQuery(hql, Livro.class);
+            Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("autor", "%" + autor + "%");
-            List<Livro> livros = query.list();
+            List<Book> livros = query.list();
             session.getTransaction().commit();
             return livros;
         } finally {
@@ -131,14 +131,14 @@ public class LivroService {
 
     // ........................................................................//
     // Retorna uma lista de livros por categoria
-    public static List<Livro> getLivrosPorCategoria(String categoria) {
+    public static List<Book> getLivrosPorCategoria(String categoria) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             String hql = "FROM Livro WHERE lower(categoria) LIKE lower(:categoria)";
-            Query<Livro> query = session.createQuery(hql, Livro.class);
+            Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("categoria", "%" + categoria + "%");
-            List<Livro> livros = query.list();
+            List<Book> livros = query.list();
             session.getTransaction().commit();
             return livros;
         } finally {
@@ -149,7 +149,7 @@ public class LivroService {
     // ........................................................................//
     // Retorna quantas copias um livro tem disponivel
     public int CopiasDisponiveis(Long ISBN) {
-        return LivroService.getLivro(ISBN).getNumero_copias_totais() -
-                EmprestimoService.getNumeroEmprestimosAbertosPorLivro(ISBN);
+        return BookService.getLivro(ISBN).getNumero_copias_totais() -
+                LoanService.getNumeroEmprestimosAbertosPorLivro(ISBN);
     }
 }
