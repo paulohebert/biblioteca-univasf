@@ -1,6 +1,6 @@
 package com.univasf.biblioteca.controller;
 
-import com.univasf.biblioteca.model.Usuario;
+import com.univasf.biblioteca.model.User;
 import com.univasf.biblioteca.service.UserService;
 import com.univasf.biblioteca.util.Dialog;
 import com.univasf.biblioteca.view.FXMLResource;
@@ -65,7 +65,7 @@ public class Login implements Initializable {
 
     @FXML
     public void signIn(Event e) throws IOException {
-        Usuario user;
+        User user;
         try {
             long cpfLong = Long.parseLong(cpfUsername.getText());
             user = UserService.getUser(cpfLong);

@@ -29,14 +29,17 @@ public class GoogleBooksAPI {
         }
     }
 
-    public static Volume getBook(String isbn) throws IOException {
-        if (volumes != null) {
+    public static Volume getBook(String isbn) {
+        try {
             Books.Volumes.List list = volumes.list("isbn:" + isbn);
-            Volumes volumes = list.execute();
+            Volumes vList = list.execute();
 
-            if (volumes.getTotalItems() == 1) {
-                return volumes.getItems().get(0);
+            if (vList.getTotalItems() == 1) {
+                String id = vList.getItems().get(0).getId();
+                return volumes.get(id).execute();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

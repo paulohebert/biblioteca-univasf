@@ -1,5 +1,8 @@
 package com.univasf.biblioteca.controller;
 
+import com.univasf.biblioteca.model.Book;
+import com.univasf.biblioteca.service.BookService;
+import com.univasf.biblioteca.util.Dialog;
 import com.univasf.biblioteca.util.GoogleBooksAPI;
 
 import com.google.api.services.books.v1.model.Volume;
@@ -64,7 +67,74 @@ public class AddBook implements Initializable {
     }
 
     @FXML
-    public void loadDataByISBN() throws IOException {
+    public void register(Event e) {
+        Book book = new Book();
+        try {
+            String isbnTxt = isbn.getText();
+            int size = isbnTxt.length();
+            if (size != 10 && size != 13) {
+                throw new IOException("ISBN inválido");
+            }
+
+            long isbnLong = Long.parseLong(isbnTxt);
+            book.setISBN(isbnLong);
+        } catch (NumberFormatException isbnErr) {
+            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+                    "O ISBN deve ser um valor numérico");
+            errDialog.show();
+            return;
+        } catch (IOException ioErr) {
+            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+                    ioErr.getMessage());
+            errDialog.show();
+            return;
+        }
+
+        book.setTitulo(title.getText());
+        book.setAutor(author.getText());
+        book.setEditora(publisher.getText());
+        book.setDescricao(description.getText());
+
+        try {
+            int amountInt = Integer.parseInt(amount.getText());
+            book.setNumero_copias_totais(amountInt);
+        } catch (NumberFormatException amoutErr) {
+            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+                    "O Número de Cópias deve ser um valor numérico");
+            errDialog.show();
+            return;
+        }
+
+        book.setCategoria(category.getText());
+
+        try {
+            int pageCountInt = Integer.parseInt(pageCount.getText());
+            book.setNumero_paginas(pageCountInt);
+        } catch (NumberFormatException amoutErr) {
+            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+                    "O Número de Páginas deve ser um valor numérico");
+            errDialog.show();
+            return;
+        }
+
+        book.setAno_publicacao(publishedDate.getValue());
+
+        try {
+            BookService.saveLivro(book);
+
+            Dialog successDialog = new Dialog(Dialog.Type.INFO, null, "Cadastro do livro",
+                    "O Livro foi cadastrado com Sucesso");
+            successDialog.show();
+            close(e);
+        } catch (Exception err) {
+            Dialog failureDialog = new Dialog(Dialog.Type.INFO, null, "Erro no Cadastro do livro",
+                    "Não foi possível cadastrar o Livro");
+            failureDialog.show();
+        }
+    }
+
+    @FXML
+    public void loadDataByISBN() {
         Volume book = GoogleBooksAPI.getBook(isbn.getText());
         if (book != null) {
             Volume.VolumeInfo vInfo = book.getVolumeInfo();
@@ -112,5 +182,4 @@ public class AddBook implements Initializable {
     public void close(Event e) {
         ((Stage) ((Node) e.getSource()).getScene().getWindow()).close();
     }
-
 }

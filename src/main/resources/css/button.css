@@ -51,19 +51,19 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-border-style: solid;
-    -fx-border-color: derive(orange, -5%);
+    -fx-border-color: gray;
     -fx-background-color: transparent;
-    -fx-text-fill: derive(orange, -5%);
+    -fx-text-fill: -secondary;
     -fx-padding: 10 70;
 }
 
 .button-cancel:hover,
 .button-cancel:focused {
-	-fx-text-fill: derive(orange, 90%);
-	-fx-background-color: derive(orange, 10%);
+	-fx-text-fill: whitesmoke;
+	-fx-background-color: derive(gray, 10%);
 }
 
 .button-cancel .mfx-ripple-generator {
-    -mfx-ripple-color: derive(orange, 40%);
+    -mfx-ripple-color: derive(gray, 40%);
     -mfx-auto-clip: true;
 }

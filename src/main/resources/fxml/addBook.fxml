@@ -59,7 +59,7 @@
                         <String fx:value="field-border" />
                      </styleClass>
                   </MFXTextField>
-                  <MFXTextField fx:id="amount" floatMode="BORDER" floatingText="Quantidade" prefWidth="100.0">
+                  <MFXTextField fx:id="amount" floatMode="BORDER" floatingText="Número de Cópias" prefWidth="100.0">
                      <styleClass>
                         <String fx:value="field" />
                         <String fx:value="field-border" />
@@ -75,7 +75,7 @@
                         <String fx:value="field-border" />
                      </styleClass>
                   </MFXTextField>
-                  <MFXDatePicker fx:id="publishedDate" floatMode="BORDER" floatingText="Ano de Publicação">
+                  <MFXDatePicker fx:id="publishedDate" floatMode="BORDER" floatingText="Data de Publicação">
                      <styleClass>
                         <String fx:value="date-picker" />
                         <String fx:value="field-border" />
@@ -104,7 +104,7 @@
             </VBox>
             <HBox alignment="CENTER" spacing="200.0">
                <children>
-                  <MFXButton styleClass="button-secondary" text="Cadastrar" />
+                  <MFXButton onAction="#register" styleClass="button-secondary" text="Cadastrar" />
                   <MFXButton onAction="#close" styleClass="button-cancel" text="Cancelar" />
                </children>
                <padding>
