@@ -1,33 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.String?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Books">
+<VBox spacing="14.0" VBox.vgrow="ALWAYS"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Books">
    <children>
-      <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox spacing="10.0">
          <children>
-            <HBox spacing="10.0">
-               <children>
-                  <MFXFontIcon description="fas-book" size="40" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
-            <MFXTableView fx:id="table" footerVisible="false" />
+            <MFXFontIcon description="fas-book" size="40" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </VBox>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <MFXTextField floatMode="DISABLED">
+               <trailingIcon>
+                  <MFXButton contentDisplay="GRAPHIC_ONLY" defaultButton="true">
+                     <graphic>
+                        <MFXFontIcon description="fas-magnifying-glass" />
+                     </graphic>
+                  </MFXButton>
+               </trailingIcon>
+               <styleClass>
+                  <String fx:value="field" />
+                  <String fx:value="field-border" />
+                  <String fx:value="field-btn" />
+               </styleClass>
+            </MFXTextField>
+            <MFXComboBox fx:id="dropdown" floatMode="DISABLED">
+               <styleClass>
+                  <String fx:value="field" />
+                  <String fx:value="field-border" />
+                  <String fx:value="dropdown" />
+               </styleClass>
+            </MFXComboBox>
+         </children>
+      </HBox>
+      <MFXScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+         <content>
+            <MFXTableView fx:id="table" footerVisible="false" maxHeight="10000.0" maxWidth="10000.0" />
+         </content>
+      </MFXScrollPane>
    </children>
-</AnchorPane>
+</VBox>

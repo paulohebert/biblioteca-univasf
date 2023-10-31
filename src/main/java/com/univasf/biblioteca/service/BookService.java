@@ -27,7 +27,7 @@ public class BookService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Livro";
+            String hql = "FROM Book";
             Query<Book> query = session.createQuery(hql, Book.class);
             List<Book> livros = query.list();
             session.getTransaction().commit();
@@ -51,6 +51,15 @@ public class BookService {
         }
     }
 
+    public static Book getLivro(String ISBN) {
+        try {
+            long isbnLong = Long.parseLong(ISBN);
+            return getLivro(isbnLong);
+        } catch (NumberFormatException numErr) {
+            return null;
+        }
+    }
+
     // ........................................................................//
     // Atualiza um livro no banco de dados
     public static void updateLivro(Book livro) {
@@ -70,7 +79,7 @@ public class BookService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Livro";
+            String hql = "FROM Book";
             Query<Book> query = session.createQuery(hql, Book.class);
             query.executeUpdate();
             session.getTransaction().commit();
@@ -95,13 +104,31 @@ public class BookService {
         }
     }
 
+    public static boolean deleteLivro(Book book) {
+        Session session = HibernateUtil.getSession();
+        boolean status = false;
+        try {
+            session.beginTransaction();
+            if (book != null) {
+                session.remove(book);
+                session.getTransaction().commit();
+                status = true;
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+
     // ........................................................................//
     // Retorna uma lista de livros por titulo
     public static List<Book> getLivrosPorTitulo(String titulo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Livro WHERE lower(titulo) LIKE lower(:titulo)";
+            String hql = "FROM Book WHERE lower(titulo) LIKE lower(:titulo)";
             Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("titulo", "%" + titulo + "%");
             List<Book> livros = query.list();
@@ -118,7 +145,7 @@ public class BookService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Livro WHERE lower(autor) LIKE lower(:autor)";
+            String hql = "FROM Book WHERE lower(autor) LIKE lower(:autor)";
             Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("autor", "%" + autor + "%");
             List<Book> livros = query.list();
@@ -135,7 +162,7 @@ public class BookService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Livro WHERE lower(categoria) LIKE lower(:categoria)";
+            String hql = "FROM Book WHERE lower(categoria) LIKE lower(:categoria)";
             Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("categoria", "%" + categoria + "%");
             List<Book> livros = query.list();

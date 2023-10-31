@@ -27,7 +27,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo";
+            String hql = "FROM Loan";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
@@ -70,7 +70,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "DELETE FROM Emprestimo";
+            String hql = "DELETE FROM Loan";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.executeUpdate();
             session.getTransaction().commit();
@@ -101,7 +101,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE usuario.cpf = :cpf";
+            String hql = "FROM Loan WHERE usuario.cpf = :cpf";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("cpf", cpf);
             List<Loan> emprestimos = query.list();
@@ -120,7 +120,7 @@ public class LoanService {
         try {
             // Use the session to get all Emprestimos with the given cpf
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE usuario.cpf = :cpf AND data_devolucao IS NULL";
+            String hql = "FROM Loan WHERE usuario.cpf = :cpf AND data_devolucao IS NULL";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("cpf", cpf);
             List<Loan> emprestimos = query.list();
@@ -138,7 +138,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE usuario.nome_usuario = :nome_usuario";
+            String hql = "FROM Loan WHERE usuario.nome_usuario = :nome_usuario";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("nome_usuario", nome_usuario);
             List<Loan> emprestimos = query.list();
@@ -156,7 +156,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE usuario.nome_usuario = :nome_usuario AND data_devolucao IS NULL";
+            String hql = "FROM Loan WHERE usuario.nome_usuario = :nome_usuario AND data_devolucao IS NULL";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("nome_usuario", nome_usuario);
             List<Loan> emprestimos = query.list();
@@ -173,7 +173,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro";
+            String hql = "FROM Loan WHERE livro.ISBN = :ISBN_Livro";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
             List<Loan> emprestimos = query.list();
@@ -190,7 +190,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
+            String hql = "FROM Loan WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
             List<Loan> emprestimos = query.list();
@@ -207,7 +207,7 @@ public class LoanService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Emprestimo WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
+            String hql = "FROM Loan WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
             List<Loan> emprestimos = query.list();

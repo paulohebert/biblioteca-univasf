@@ -39,3 +39,23 @@
 .field-border {
     -fx-border-color: #a0a0a0;
 }
+
+.field-btn {
+    -fx-min-width: 300;
+}
+
+.field-btn .mfx-ripple-generator {
+    -mfx-paused: true;
+}
+
+.dropdown .caret .mfx-ripple-generator {
+    -mfx-ripple-color: -primary-50;
+}
+
+.dropdown .virtual-flow .mfx-combo-box-cell:hover {
+    -fx-background-color: derive(-primary-50, 90%);
+}
+
+.dropdown .virtual-flow .mfx-combo-box-cell:selected {
+    -fx-background-color: derive(-primary, 70%);
+}

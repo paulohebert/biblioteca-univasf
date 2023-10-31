@@ -45,3 +45,7 @@
 .sign-out:hover {
     -fx-background-color: rgb(255, 59, 59);
 }
+
+#table .mfx-ripple-generator {
+    -mfx-paused: true;
+}

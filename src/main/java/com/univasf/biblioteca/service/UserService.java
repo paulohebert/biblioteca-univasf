@@ -23,7 +23,7 @@ public class UserService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("FROM Usuario", User.class);
+            Query<User> query = session.createQuery("FROM User", User.class);
             List<User> users = query.list();
             session.getTransaction().commit();
             return users;
@@ -48,7 +48,7 @@ public class UserService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Usuario WHERE nome_usuario = :nome_usuario";
+            String hql = "FROM User WHERE nome_usuario = :nome_usuario";
             Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("nome_usuario", username);
             User usuario = query.getSingleResult();
@@ -74,7 +74,7 @@ public class UserService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            Query<User> query = session.createNativeQuery("DELETE FROM Usuario", User.class);
+            Query<User> query = session.createNativeQuery("DELETE FROM User", User.class);
             query.executeUpdate();
             session.getTransaction().commit();
         } finally {
@@ -100,7 +100,7 @@ public class UserService {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Usuario WHERE lower(nome) LIKE lower(:nome)";
+            String hql = "FROM User WHERE lower(nome) LIKE lower(:nome)";
             Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("nome", "%" + name + "%");
             List<User> users = query.list();

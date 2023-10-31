@@ -127,7 +127,7 @@ public class AddBook implements Initializable {
             successDialog.show();
             close(e);
         } catch (Exception err) {
-            Dialog failureDialog = new Dialog(Dialog.Type.INFO, null, "Erro no Cadastro do livro",
+            Dialog failureDialog = new Dialog(Dialog.Type.ERROR, null, "Erro no Cadastro do livro",
                     "Não foi possível cadastrar o Livro");
             failureDialog.show();
         }
