@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.univasf.biblioteca.view.Window;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -111,7 +112,9 @@ public class Dialog {
 
         addActions(
                 Map.entry(new MFXButton("Confirmar"), event -> {
-                    eventConfirm.handle(event);
+                    Platform.runLater(() -> {
+                        eventConfirm.handle(event);
+                    });
                     box.close();
                 }),
                 Map.entry(new MFXButton("Cancelar"), event -> box.close()));
