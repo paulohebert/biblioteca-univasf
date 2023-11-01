@@ -28,9 +28,9 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <MFXTextField floatMode="DISABLED">
+            <MFXTextField fx:id="searchField" floatMode="DISABLED" promptText="Pesquisar">
                <trailingIcon>
-                  <MFXButton contentDisplay="GRAPHIC_ONLY" defaultButton="true">
+                  <MFXButton onAction="#search" contentDisplay="GRAPHIC_ONLY" defaultButton="true">
                      <graphic>
                         <MFXFontIcon description="fas-magnifying-glass" />
                      </graphic>
@@ -49,6 +49,33 @@
                   <String fx:value="dropdown" />
                </styleClass>
             </MFXComboBox>
+            <MFXButton onAction="#search" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
+               <styleClass>
+                  <String fx:value="button-circle" />
+                  <String fx:value="button-ripple-gray" />
+               </styleClass>
+               <graphic>
+                  <MFXFontIcon description="fas-rotate" size="17" />
+               </graphic>
+            </MFXButton>
+            <MFXButton onAction="#addBook" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
+               <styleClass>
+                  <String fx:value="button-circle" />
+                  <String fx:value="button-ripple-gray" />
+               </styleClass>
+               <graphic>
+                  <MFXFontIcon description="fas-plus" size="17" />
+               </graphic>
+            </MFXButton>
+            <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
+               <styleClass>
+                  <String fx:value="button-circle" />
+                  <String fx:value="button-ripple-red" />
+               </styleClass>
+               <graphic>
+                  <MFXFontIcon description="fas-trash-can" size="17" />
+               </graphic>
+            </MFXButton>
          </children>
       </HBox>
       <MFXScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">

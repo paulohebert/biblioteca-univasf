@@ -2,11 +2,13 @@ package com.univasf.biblioteca.view;
 
 public enum FXMLResource {
     LOGIN("/fxml/login.fxml", "Login"),
-    ADMIN("/fxml/admin.fxml", "Admin"),
+    ADMIN("/fxml/admin.fxml", "Administrador"),
     USER("/fxml/user.fxml", "Usuário"),
     REPORT("/fxml/report.fxml", "Relatório"),
     ADD_USER("/fxml/addUser.fxml", "Cadastrar Usuário"),
     ADD_BOOK("/fxml/addBook.fxml", "Cadastrar Livro"),
+    EDIT_BOOK("/fxml/editBook.fxml", "Editar Livro"),
+    Book_Details("/fxml/bookDetails.fxml", "Dados do Livro"),
     BOOKS("/fxml/books.fxml", "Livros");
 
     private String path;

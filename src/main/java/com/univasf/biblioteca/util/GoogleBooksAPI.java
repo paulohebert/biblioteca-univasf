@@ -11,6 +11,8 @@ import com.google.api.services.books.v1.BooksRequestInitializer;
 import com.google.api.services.books.v1.model.Volume;
 import com.google.api.services.books.v1.model.Volumes;
 
+import javafx.scene.image.Image;
+
 public class GoogleBooksAPI {
     private static Books booksService;
     private static Books.Volumes volumes;
@@ -37,6 +39,26 @@ public class GoogleBooksAPI {
             if (vList.getTotalItems() == 1) {
                 String id = vList.getItems().get(0).getId();
                 return volumes.get(id).execute();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Image getImage(String isbn) {
+        try {
+            Books.Volumes.List list = volumes.list("isbn:" + isbn);
+            Volumes vList = list.execute();
+
+            if (vList.getTotalItems() == 1) {
+                String url = vList
+                        .getItems()
+                        .get(0)
+                        .getVolumeInfo()
+                        .getImageLinks()
+                        .getThumbnail();
+                return new Image(url);
             }
         } catch (Exception e) {
             e.printStackTrace();

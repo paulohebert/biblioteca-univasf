@@ -21,4 +21,5 @@ module com.univasf.biblioteca {
 
     exports com.univasf.biblioteca;
     exports com.univasf.biblioteca.controller;
+    exports com.univasf.biblioteca.model;
 }

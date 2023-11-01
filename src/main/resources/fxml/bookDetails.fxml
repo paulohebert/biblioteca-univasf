@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../css/styles.css"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.BookDetails">
+   <children>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <MFXFontIcon description="fas-book" size="40" />
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Dados do Livro">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <ImageView fx:id="bookCover" fitHeight="200.0" fitWidth="150.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/book-cover.png" />
+                     </image>
+                  </ImageView>
+                  <VBox spacing="20.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <MFXTextField fx:id="isbn" floatMode="BORDER" floatingText="ISBN" prefWidth="200.0" textLimit="13">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                              <MFXTextField fx:id="title" floatMode="BORDER" floatingText="Título" prefWidth="470.0" textLimit="255">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <MFXTextField fx:id="author" floatMode="BORDER" floatingText="Autor" prefWidth="275.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                              <MFXTextField fx:id="publisher" floatMode="BORDER" floatingText="Editora" prefWidth="285.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                              <MFXTextField fx:id="amount" floatMode="BORDER" floatingText="Número de Cópias" prefWidth="100.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <MFXTextField fx:id="category" floatMode="BORDER" floatingText="Categoria" prefWidth="412.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                              <MFXTextField fx:id="publishedDate" floatMode="BORDER" floatingText="Data de Publicação" prefWidth="128.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                              <MFXTextField fx:id="pageCount" floatMode="BORDER" floatingText="Número de Páginas" prefWidth="140.0">
+                                 <styleClass>
+                                    <String fx:value="field" />
+                                    <String fx:value="field-border" />
+                                 </styleClass>
+                              </MFXTextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <Text fill="#505050" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="7.0" />
+                     </VBox.margin>
+                  </Text>
+                  <TextArea fx:id="description" styleClass="text-area" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

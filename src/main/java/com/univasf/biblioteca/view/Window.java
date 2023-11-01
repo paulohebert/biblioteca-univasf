@@ -11,10 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -42,6 +40,10 @@ public class Window {
         return FXMLLoader.load(App.class.getResource(fxml.getFXMLPath()));
     }
 
+    public static FXMLLoader loadFXMLResource(FXMLResource fxml) {
+        return new FXMLLoader(App.class.getResource(fxml.getFXMLPath()));
+    }
+
     public static void init(Stage stage, FXMLResource fxml) throws IOException {
         mainStage = stage;
 
@@ -62,15 +64,19 @@ public class Window {
     }
 
     public static Stage create(FXMLResource fxml, double width, double height) throws IOException {
-        Stage newStage = new Stage();
-        newStage.setTitle(fxml.getTitle());
-
         Parent root = loadFXML(fxml);
+        return create(root, fxml.getTitle(), width, height);
+    }
+
+    public static Stage create(Parent root, String title, double width, double height) {
+        Stage newStage = new Stage();
+
         Scene scene = new Scene(root, width, height);
         MFXThemeManager.addOn(scene, Themes.DEFAULT);
         scene.getStylesheets().add(App.class.getResource("/css/styles.css").toExternalForm());
 
         newStage.setScene(scene);
+        newStage.setTitle(title);
 
         newStage.setX(mainStage.getX() + (Window.width - width) / 2);
         newStage.setY(mainStage.getY() + (Window.height - height) / 2);

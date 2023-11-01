@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.univasf.biblioteca.model.Book;
@@ -17,19 +18,26 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.input.MouseEvent;
 
 public class Books implements Initializable {
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private ObservableList<Book> data;
     @FXML
     private MFXTableView<Book> table;
+    @FXML
+    private MFXTextField searchField;
     @FXML
     private MFXComboBox<SEARCH> dropdown;
 
@@ -43,7 +51,7 @@ public class Books implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         var books = BookService.getAllLivros();
-        var data = FXCollections.observableArrayList(books);
+        data = FXCollections.observableArrayList(books);
 
         MFXTableColumn<Book> isbnColumn = new MFXTableColumn<>("ISBN", true, Comparator.comparing(Book::getISBN));
         MFXTableColumn<Book> titleColumn = new MFXTableColumn<>("Título", true, Comparator.comparing(Book::getTitulo));
@@ -73,7 +81,48 @@ public class Books implements Initializable {
             seeBtn.getStyleClass().add("button-gray");
             editBtn.getStyleClass().add("button-blue");
             delBtn.getStyleClass().add("button-red");
+            seeBtn.setOnAction((event) -> {
+                try {
+                    Book bookData = BookService.getLivro(cell.getText());
+                    if (bookData != null) {
+                        FXMLLoader fxml = Window.loadFXMLResource(FXMLResource.Book_Details);
+                        Parent root = fxml.load();
+                        Window.create(root, FXMLResource.Book_Details.getTitle(), 800, 500);
 
+                        BookDetails bookDetails = fxml.getController();
+                        bookDetails.setBook(bookData);
+                    } else {
+                        throw new Exception();
+                    }
+                } catch (Exception err) {
+                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
+                            "Editar Livro",
+                            "Não foi possível editar o livro");
+                    failureDialog.show();
+                    err.printStackTrace();
+                }
+            });
+            editBtn.setOnAction((event) -> {
+                try {
+                    Book bookData = BookService.getLivro(cell.getText());
+                    if (bookData != null) {
+                        FXMLLoader fxml = Window.loadFXMLResource(FXMLResource.EDIT_BOOK);
+                        Parent root = fxml.load();
+                        Window.create(root, FXMLResource.EDIT_BOOK.getTitle(), 700, 500);
+
+                        EditBook editBook = fxml.getController();
+                        editBook.setBook(bookData);
+                    } else {
+                        throw new Exception();
+                    }
+                } catch (Exception err) {
+                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
+                            "Editar Livro",
+                            "Não foi possível editar o livro");
+                    failureDialog.show();
+                    err.printStackTrace();
+                }
+            });
             delBtn.setOnAction((event) -> {
                 Book bookData = BookService.getLivro(cell.getText());
                 String msg = """
@@ -91,12 +140,21 @@ public class Books implements Initializable {
                             @Override
                             public void handle(MouseEvent mEvent) {
                                 if (BookService.deleteLivro(bookData)) {
-                                    Dialog successDialog = new Dialog(Dialog.Type.INFO, null,
+                                    Dialog successDialog = new Dialog(Dialog.Type.INFO, event,
                                             "Excluir Livro",
                                             "O Livro foi excluído com sucesso");
                                     successDialog.show();
+
+                                    data.removeIf(bookM -> {
+                                        try {
+                                            long isbnLong = Long.parseLong(cell.getText());
+                                            return bookM.getISBN() == isbnLong;
+                                        } catch (NumberFormatException numErr) {
+                                            return false;
+                                        }
+                                    });
                                 } else {
-                                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, null,
+                                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
                                             "Excluir Livro",
                                             "Não foi possível excluir o livro");
                                     failureDialog.show();
@@ -112,6 +170,7 @@ public class Books implements Initializable {
             cell.setGraphic(editBtn);
             cell.setTrailingGraphic(delBtn);
             cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            cell.setWrapText(true);
             return cell;
         });
 
@@ -126,6 +185,37 @@ public class Books implements Initializable {
         table.autosizeColumnsOnInitialization();
 
         dropdown.setItems(FXCollections.observableArrayList(SEARCH.values()));
-        dropdown.getSelectionModel().selectItem(SEARCH.ISBN);
+        dropdown.getSelectionModel().selectItem(SEARCH.Título);
+    }
+
+    @FXML
+    public void addBook() throws IOException {
+        Window.create(FXMLResource.ADD_BOOK, 700, 500);
+    }
+
+    @FXML
+    public void search() {
+        SEARCH type = dropdown.getSelectedItem();
+        data.clear();
+        switch (type) {
+            case ISBN:
+                Book booksByISBN = BookService.getLivro(searchField.getText());
+                if (booksByISBN != null) {
+                    data.setAll(booksByISBN);
+                }
+                break;
+            case Título:
+                List<Book> booksByTitle = BookService.getLivrosPorTitulo(searchField.getText());
+                data.setAll(booksByTitle);
+                break;
+            case Autor:
+                List<Book> booksByAuthor = BookService.getLivrosPorAutor(searchField.getText());
+                data.setAll(booksByAuthor);
+                break;
+            case Categoria:
+                List<Book> booksByCategory = BookService.getLivrosPorCategoria(searchField.getText());
+                data.setAll(booksByCategory);
+                break;
+        }
     }
 }

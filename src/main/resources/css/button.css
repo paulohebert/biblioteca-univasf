@@ -76,6 +76,11 @@
     -fx-background-color: derive(#4444ff, -20%);
 }
 
+.button-ripple-blue .mfx-ripple-generator {
+    -mfx-ripple-color: #0000ff77;
+    -mfx-auto-clip: true;
+}
+
 .button-red {
     -fx-background-color: #ff4444;
 }
@@ -84,12 +89,22 @@
     -fx-background-color: derive(#ff4444, -20%);
 }
 
+.button-ripple-red .mfx-ripple-generator {
+    -mfx-ripple-color: #ff000077;
+    -mfx-auto-clip: true;
+}
+
 .button-gray {
     -fx-background-color: #707070;
 }
 
 .button-gray:focused {
     -fx-background-color: derive(#707070, -20%);
+}
+
+.button-ripple-gray .mfx-ripple-generator {
+    -mfx-ripple-color: #707070aa;
+    -mfx-auto-clip: true;
 }
 
 .button-blue,
@@ -109,3 +124,11 @@
 .button-gray MFXFontIcon {
     -mfx-color: whitesmoke;
 }
+
+.button-circle,
+.button-circle:hover,
+.button-circle:focused {
+    -fx-background-radius: 17;
+    -fx-padding: 10;
+}
+
