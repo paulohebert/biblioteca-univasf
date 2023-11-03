@@ -10,7 +10,8 @@ import java.util.ResourceBundle;
 
 import com.univasf.biblioteca.model.Book;
 import com.univasf.biblioteca.service.BookService;
-import com.univasf.biblioteca.util.Dialog;
+import com.univasf.biblioteca.util.DialogFactory;
+import com.univasf.biblioteca.util.DialogFactory.DialogType;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
 
@@ -64,7 +65,10 @@ public class Books implements Initializable {
         isbnColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getISBN));
         titleColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getTitulo));
         authorColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getAutor));
-        publisherColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getEditora));
+        publisherColumn.setRowCellFactory(book -> new MFXTableRowCell<>((bookModel) -> {
+            String publisher = book.getEditora();
+            return publisher != null ? publisher : "";
+        }));
         dateColumn.setRowCellFactory(book -> new MFXTableRowCell<>((bookModel) -> {
             LocalDate date = book.getAno_publicacao();
             return date != null ? date.format(format) : "";
@@ -95,10 +99,9 @@ public class Books implements Initializable {
                         throw new Exception();
                     }
                 } catch (Exception err) {
-                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
-                            "Editar Livro",
-                            "Não foi possível editar o livro");
-                    failureDialog.show();
+                    DialogFactory.showDialog(DialogType.ERROR, "Ver Livro",
+                            "Não foi possível visualizar o livro");
+
                     err.printStackTrace();
                 }
             });
@@ -116,54 +119,44 @@ public class Books implements Initializable {
                         throw new Exception();
                     }
                 } catch (Exception err) {
-                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
-                            "Editar Livro",
+                    DialogFactory.showDialog(DialogType.ERROR, "Editar Livro",
                             "Não foi possível editar o livro");
-                    failureDialog.show();
+
                     err.printStackTrace();
                 }
             });
             delBtn.setOnAction((event) -> {
                 Book bookData = BookService.getLivro(cell.getText());
-                String msg = """
+                if (bookData != null) {
+                    String msg = """
 
-                        Tem certeza de que deseja excluir o Livro?
+                            Tem certeza de que deseja excluir o Livro?
 
-                        ISBN: %d
-                        Título: %s
-                        Autor: %s
-                        """.formatted(bookData.getISBN(), bookData.getTitulo(), bookData.getAutor());
+                            ISBN: %d
+                            Título: %s
+                            Autor: %s
+                            """.formatted(bookData.getISBN(), bookData.getTitulo(), bookData.getAutor());
+                    EventHandler<MouseEvent> eventConfirm = (e) -> {
+                        if (BookService.deleteLivro(bookData)) {
+                            DialogFactory.showDialog(DialogType.INFO, "Excluir Livro",
+                                    "O Livro foi excluído com sucesso");
 
-                Dialog deleteDialog = new Dialog(
-                        Dialog.Type.WARNING, event,
-                        new EventHandler<MouseEvent>() {
-                            @Override
-                            public void handle(MouseEvent mEvent) {
-                                if (BookService.deleteLivro(bookData)) {
-                                    Dialog successDialog = new Dialog(Dialog.Type.INFO, event,
-                                            "Excluir Livro",
-                                            "O Livro foi excluído com sucesso");
-                                    successDialog.show();
-
-                                    data.removeIf(bookM -> {
-                                        try {
-                                            long isbnLong = Long.parseLong(cell.getText());
-                                            return bookM.getISBN() == isbnLong;
-                                        } catch (NumberFormatException numErr) {
-                                            return false;
-                                        }
-                                    });
-                                } else {
-                                    Dialog failureDialog = new Dialog(Dialog.Type.ERROR, event,
-                                            "Excluir Livro",
-                                            "Não foi possível excluir o livro");
-                                    failureDialog.show();
+                            data.removeIf(bookM -> {
+                                try {
+                                    long isbnLong = Long.parseLong(cell.getText());
+                                    return bookM.getISBN() == isbnLong;
+                                } catch (NumberFormatException numErr) {
+                                    return false;
                                 }
-                            }
-                        },
-                        "Excluir Livro", msg);
+                            });
+                        } else {
+                            DialogFactory.showDialog(DialogType.ERROR, "Excluir Livro",
+                                    "Não foi possível excluir o livro");
+                        }
+                    };
 
-                deleteDialog.show();
+                    DialogFactory.showDialog(DialogType.WARNING, "Excluir Livro", msg, eventConfirm);
+                }
             });
 
             cell.setLeadingGraphic(seeBtn);

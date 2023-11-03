@@ -1,16 +1,16 @@
 package com.univasf.biblioteca.controller;
 
-import com.univasf.biblioteca.model.Book;
-import com.univasf.biblioteca.service.BookService;
-import com.univasf.biblioteca.util.Dialog;
-
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.univasf.biblioteca.model.Book;
+import com.univasf.biblioteca.service.BookService;
+import com.univasf.biblioteca.util.DialogFactory;
+import com.univasf.biblioteca.util.DialogFactory.DialogType;
+
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -84,9 +84,8 @@ public class EditBook implements Initializable {
             int amountInt = Integer.parseInt(amount.getText());
             book.setNumero_copias_totais(amountInt);
         } catch (NumberFormatException amoutErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro na atualização do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
                     "O Número de Cópias deve ser um valor numérico");
-            errDialog.show();
             return;
         }
 
@@ -96,9 +95,8 @@ public class EditBook implements Initializable {
             int pageCountInt = Integer.parseInt(pageCount.getText());
             book.setNumero_paginas(pageCountInt);
         } catch (NumberFormatException amoutErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro na atualização do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
                     "O Número de Páginas deve ser um valor numérico");
-            errDialog.show();
             return;
         }
 
@@ -107,14 +105,12 @@ public class EditBook implements Initializable {
         try {
             BookService.updateLivro(book);
 
-            Dialog successDialog = new Dialog(Dialog.Type.INFO, null, "Atualização do livro",
+            DialogFactory.showDialog(DialogType.INFO, "Atualização do livro",
                     "O Livro foi atualizado com Sucesso");
-            successDialog.show();
             close(e);
         } catch (Exception err) {
-            Dialog failureDialog = new Dialog(Dialog.Type.ERROR, null, "Erro na atualização do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
                     "Não foi possível atualizar o Livro");
-            failureDialog.show();
         }
     }
 

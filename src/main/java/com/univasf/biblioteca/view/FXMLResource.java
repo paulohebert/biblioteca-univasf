@@ -8,8 +8,11 @@ public enum FXMLResource {
     ADD_USER("/fxml/addUser.fxml", "Cadastrar Usuário"),
     ADD_BOOK("/fxml/addBook.fxml", "Cadastrar Livro"),
     EDIT_BOOK("/fxml/editBook.fxml", "Editar Livro"),
+    EDIT_USER("/fxml/editUser.fxml", "Editar Usuário"),
     Book_Details("/fxml/bookDetails.fxml", "Dados do Livro"),
-    BOOKS("/fxml/books.fxml", "Livros");
+    BOOKS("/fxml/books.fxml", "Livros"),
+    USERS("/fxml/users.fxml", "Usuários"),
+    CONFIG("/fxml/config.fxml", "Configuração");
 
     private String path;
     private String title;

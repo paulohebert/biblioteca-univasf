@@ -1,12 +1,12 @@
 package com.univasf.biblioteca.view;
 
+import java.io.IOException;
+
 import com.univasf.biblioteca.App;
 
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
-
-import java.io.IOException;
-
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -60,6 +60,10 @@ public class Window {
         mainStage.getIcons().add(new Image(App.class.getResourceAsStream("/img/icon.png")));
         mainStage.setMaximized(true);
         mainStage.setScene(scene);
+        mainStage.setOnCloseRequest(event -> {
+            event.consume();
+            Platform.exit();
+        });
         mainStage.show();
     }
 
@@ -77,12 +81,12 @@ public class Window {
 
         newStage.setScene(scene);
         newStage.setTitle(title);
+        newStage.setResizable(false);
 
         newStage.setX(mainStage.getX() + (Window.width - width) / 2);
         newStage.setY(mainStage.getY() + (Window.height - height) / 2);
 
         newStage.show();
-
         return newStage;
     }
 

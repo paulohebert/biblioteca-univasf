@@ -2,7 +2,8 @@ package com.univasf.biblioteca.controller;
 
 import com.univasf.biblioteca.model.Book;
 import com.univasf.biblioteca.service.BookService;
-import com.univasf.biblioteca.util.Dialog;
+import com.univasf.biblioteca.util.DialogFactory;
+import com.univasf.biblioteca.util.DialogFactory.DialogType;
 import com.univasf.biblioteca.util.GoogleBooksAPI;
 
 import com.google.api.services.books.v1.model.Volume;
@@ -79,14 +80,11 @@ public class AddBook implements Initializable {
             long isbnLong = Long.parseLong(isbnTxt);
             book.setISBN(isbnLong);
         } catch (NumberFormatException isbnErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
                     "O ISBN deve ser um valor numérico");
-            errDialog.show();
             return;
         } catch (IOException ioErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
-                    ioErr.getMessage());
-            errDialog.show();
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro", ioErr.getMessage());
             return;
         }
 
@@ -99,9 +97,8 @@ public class AddBook implements Initializable {
             int amountInt = Integer.parseInt(amount.getText());
             book.setNumero_copias_totais(amountInt);
         } catch (NumberFormatException amoutErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
                     "O Número de Cópias deve ser um valor numérico");
-            errDialog.show();
             return;
         }
 
@@ -111,9 +108,8 @@ public class AddBook implements Initializable {
             int pageCountInt = Integer.parseInt(pageCount.getText());
             book.setNumero_paginas(pageCountInt);
         } catch (NumberFormatException amoutErr) {
-            Dialog errDialog = new Dialog(Dialog.Type.ERROR, e, "Erro no Cadastro do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
                     "O Número de Páginas deve ser um valor numérico");
-            errDialog.show();
             return;
         }
 
@@ -122,14 +118,11 @@ public class AddBook implements Initializable {
         try {
             BookService.saveLivro(book);
 
-            Dialog successDialog = new Dialog(Dialog.Type.INFO, null, "Cadastro do livro",
-                    "O Livro foi cadastrado com Sucesso");
-            successDialog.show();
+            DialogFactory.showDialog(DialogType.INFO, "Cadastro do livro", "O Livro foi cadastrado com Sucesso");
             close(e);
         } catch (Exception err) {
-            Dialog failureDialog = new Dialog(Dialog.Type.ERROR, null, "Erro no Cadastro do livro",
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
                     "Não foi possível cadastrar o Livro");
-            failureDialog.show();
         }
     }
 
