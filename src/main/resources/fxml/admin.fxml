@@ -3,12 +3,13 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,9 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@../css/styles.css"
-   xmlns="http://javafx.com/javafx/20.0.1"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
+<AnchorPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -58,7 +57,7 @@
             </MenuBar>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox spacing="10.0" styleClass="sidebar">
+                  <VBox spacing="10.0" prefWidth="270.0" styleClass="sidebar">
                      <children>
                         <VBox alignment="CENTER">
                            <children>
@@ -76,9 +75,9 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <VBox spacing="14.0">
+                        <VBox spacing="14.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text style="-fx-fill: white;" text="Seja bem-vindo, Usuário XYZ!">
+                              <Text fx:id="greeting" wrappingWidth="250.0" style="-fx-fill: white;">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
@@ -118,7 +117,7 @@
                                  </graphic>
                               </MFXRectangleToggleNode>
                               <Separator />
-                              <MFXRectangleToggleNode fx:id="configBtn" maxWidth="400">
+                              <MFXRectangleToggleNode fx:id="configBtn" maxWidth="400" onAction="#loadConfigPanel">
                                  <graphic>
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
@@ -138,6 +137,14 @@
                               <Insets bottom="0.0" left="0.0" right="20.0" top="0.0" />
                            </padding>
                         </VBox>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" opacity="0.7" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/univasf-logo-white-blue-low.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="30.0" />
+                           </VBox.margin>
+                        </ImageView>
                      </children>
                   </VBox>
                   <VBox fx:id="main" spacing="10.0" HBox.hgrow="ALWAYS">

@@ -2,6 +2,7 @@ package com.univasf.biblioteca.service;
 
 import java.util.List;
 import org.hibernate.query.Query;
+
 import com.univasf.biblioteca.model.User;
 import com.univasf.biblioteca.util.HibernateUtil;
 import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -44,6 +45,15 @@ public class UserService {
         }
     }
 
+    public static User getUser(String cpf) {
+        try {
+            long cpfLong = Long.parseLong(cpf);
+            return getUser(cpfLong);
+        } catch (NumberFormatException numErr) {
+            return null;
+        }
+    }
+
     public static User getUserByUserName(String username) {
         Session session = HibernateUtil.getSession();
         try {
@@ -51,9 +61,9 @@ public class UserService {
             String hql = "FROM User WHERE nome_usuario = :nome_usuario";
             Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("nome_usuario", username);
-            User usuario = query.getSingleResult();
+            User user = query.getSingleResult();
             session.getTransaction().commit();
-            return usuario;
+            return user;
         } finally {
             session.close();
         }
@@ -96,6 +106,24 @@ public class UserService {
         }
     }
 
+    public static boolean deleteUser(User user) {
+        Session session = HibernateUtil.getSession();
+        boolean status = false;
+        try {
+            session.beginTransaction();
+            if (user != null) {
+                session.remove(user);
+                session.getTransaction().commit();
+                status = true;
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+
     public static List<User> getUsersByName(String name) {
         Session session = HibernateUtil.getSession();
         try {
@@ -103,6 +131,36 @@ public class UserService {
             String hql = "FROM User WHERE lower(nome) LIKE lower(:nome)";
             Query<User> query = session.createQuery(hql, User.class);
             query.setParameter("nome", "%" + name + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getUsersByEmail(String email) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(email) LIKE lower(:email)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("email", "%" + email + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getUsersByAddress(String address) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(endereco) LIKE lower(:endereco)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("endereco", "%" + address + "%");
             List<User> users = query.list();
             session.getTransaction().commit();
             return users;

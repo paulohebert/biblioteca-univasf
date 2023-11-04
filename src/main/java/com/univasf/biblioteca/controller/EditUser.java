@@ -13,7 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class AddUser {
+public class EditUser {
+    private User user;
+
     @FXML
     private MFXTextField cpf;
     @FXML
@@ -31,42 +33,48 @@ public class AddUser {
     @FXML
     private MFXToggleButton admin;
 
+    private void dataInit() {
+        cpf.setText(user.getCpf().toString());
+        username.setText(user.getNomeUsuario());
+        name.setText(user.getNome());
+        email.setText(user.getEmail());
+        address.setText(user.getEndereco());
+        admin.setSelected(user.getTipoAdministrador());
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        dataInit();
+    }
+
     @FXML
-    public void register(Event e) {
-        User user = new User();
-
-        try {
-            long cpfLong = Long.parseLong(cpf.getText());
-            user.setCpf(cpfLong);
-        } catch (NumberFormatException numErr) {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro ao Cadastrar Usuário",
-                    "O CPF deve ser um valor numérico", e);
-            return;
-        }
-
-        user.setNome_usuario(username.getText());
+    public void update(Event e) {
         user.setNome(name.getText());
         user.setEmail(email.getText());
         user.setEndereco(address.getText());
 
-        if (password.getText().equals(password2.getText())) {
-            user.setSenha(password.getText());
-        } else {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro ao Cadastrar Usuário",
-                    "As senhas devem ser iguais", e);
-            return;
+        String passwordTxt = password.getText();
+        String password2Txt = password2.getText();
+        if (!(passwordTxt.isEmpty() && password2Txt.isEmpty())) {
+            if (passwordTxt.equals(password2Txt)) {
+                user.setSenha(passwordTxt);
+            } else {
+                DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do Usuário",
+                        "As senhas devem ser iguais", e);
+                return;
+            }
         }
 
         user.setTipo_administrador(admin.isSelected());
 
         try {
-            UserService.saveUser(user);
+            UserService.updateUser(user);
 
-            DialogFactory.showDialog(DialogType.INFO, "Cadastro do Usuário", "O Usuário foi cadastrado com Sucesso");
+            DialogFactory.showDialog(DialogType.INFO, "Atualizar Usuário", "O Usuário foi atualizado com Sucesso");
             close(e);
         } catch (Exception err) {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro ao Cadastrar Usuário",
-                    "Não foi possível cadastrar o usuário");
+            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do Usuário",
+                    "Não foi possível atualizar o usuário");
         }
     }
 

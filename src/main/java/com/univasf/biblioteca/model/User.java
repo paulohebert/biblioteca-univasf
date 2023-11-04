@@ -11,12 +11,15 @@ import jakarta.persistence.Table;
 public class User {
     @Id
     private Long cpf;
+    @Column(nullable = false)
     private String nome;
     private String email;
     private String endereco;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String nome_usuario;
+    @Column(nullable = false)
     private String senha;
+    @Column(nullable = false)
     private Boolean tipo_administrador;
 
     // ........................................................................//
@@ -55,9 +58,25 @@ public class User {
         this.endereco = endereco;
     }
 
+    public void setCpf(Long cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setNome_usuario(String nome_usuario) {
+        this.nome_usuario = nome_usuario;
+    }
+
     public void setSenha(String senha) {
         String hashedPassword = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
         this.senha = hashedPassword;
+    }
+
+    public void setTipo_administrador(Boolean tipo_administrador) {
+        this.tipo_administrador = tipo_administrador;
     }
 
     // ........................................................................//

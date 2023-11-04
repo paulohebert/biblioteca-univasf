@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="595.0" style="-fx-background-color: white;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.AddUser">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="595.0" style="-fx-background-color: white;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.EditUser">
    <children>
       <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -21,8 +21,8 @@
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <MFXFontIcon description="fas-user-plus" size="40" />
-                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastrar Usuário">
+                        <MFXFontIcon description="fas-user-pen" size="40" />
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Usuário">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -34,13 +34,13 @@
             </HBox>
             <HBox spacing="10.0">
                <children>
-                  <MFXTextField fx:id="cpf" floatMode="BORDER" floatingText="CPF" prefWidth="250.0">
+                  <MFXTextField disable="true" fx:id="cpf" floatMode="BORDER" floatingText="CPF" prefWidth="250.0">
                      <styleClass>
                         <String fx:value="field" />
                         <String fx:value="field-border" />
                      </styleClass>
                   </MFXTextField>
-                  <MFXTextField fx:id="username" floatMode="BORDER" floatingText="Username" prefWidth="315.0">
+                  <MFXTextField disable="true" fx:id="username" floatMode="BORDER" floatingText="Username" prefWidth="315.0">
                      <styleClass>
                         <String fx:value="field" />
                         <String fx:value="field-border" />
@@ -88,7 +88,7 @@
             </HBox>
             <HBox alignment="BOTTOM_CENTER" spacing="90.0" VBox.vgrow="ALWAYS">
                <children>
-                  <MFXButton onAction="#register" styleClass="button-secondary" text="Cadastrar" />
+                  <MFXButton onAction="#update" styleClass="button-secondary" text="Atualizar Dados" />
                   <MFXButton onAction="#close" styleClass="button-cancel" text="Cancelar" />
                </children>
                <padding>
