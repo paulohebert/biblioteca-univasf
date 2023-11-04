@@ -43,3 +43,13 @@
 	-mfx-animation-speed: 1.4;
 	-mfx-paused: false;
 }
+
+.mfx-toggle-button {
+	-mfx-main: -primary;
+	-mfx-secondary: -secondary;
+	-fx-text-fill: #000000;
+}
+
+.mfx-toggle-button .mfx-ripple-generator {
+	-mfx-ripple-color: -primary;
+}

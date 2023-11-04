@@ -72,6 +72,17 @@ public class Window {
         return create(root, fxml.getTitle(), width, height);
     }
 
+    public static <T> T createWithController(FXMLResource fxml, double width, double height)
+            throws IOException {
+        FXMLLoader loader = loadFXMLResource(fxml);
+        Parent root = loader.load();
+        T controller = loader.getController();
+        if (controller != null) {
+            create(root, fxml.getTitle(), width, height);
+        }
+        return controller;
+    }
+
     public static Stage create(Parent root, String title, double width, double height) {
         Stage newStage = new Stage();
 

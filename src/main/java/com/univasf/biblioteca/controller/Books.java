@@ -12,35 +12,35 @@ import com.univasf.biblioteca.model.Book;
 import com.univasf.biblioteca.service.BookService;
 import com.univasf.biblioteca.util.DialogFactory;
 import com.univasf.biblioteca.util.DialogFactory.DialogType;
+import com.univasf.biblioteca.util.TableUtil;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
-import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Labeled;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 public class Books implements Initializable {
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private ObservableList<Book> data;
+    private ObservableList<Book> data = FXCollections.observableArrayList();
     @FXML
     private MFXTableView<Book> table;
     @FXML
     private MFXTextField searchField;
     @FXML
     private MFXComboBox<SEARCH> dropdown;
+    @FXML
+    private Text results;
 
     public enum SEARCH {
         ISBN,
@@ -49,136 +49,102 @@ public class Books implements Initializable {
         Categoria;
     };
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        var books = BookService.getAllLivros();
-        data = FXCollections.observableArrayList(books);
+    private EventHandler<ActionEvent> seeEvent = (e) -> {
+        try {
+            BookInfo bookInfo = Window.<BookInfo>createWithController(FXMLResource.BOOK_INFO, 800, 500);
+            if (bookInfo != null) {
+                String isbnStr = ((Labeled) ((MFXButton) e.getSource()).getParent().getParent()).getText();
+                Book book = BookService.getLivro(isbnStr);
+                if (book != null) {
+                    bookInfo.setBook(book);
+                } else {
+                    throw new IOException("O Livro não existe");
+                }
+            } else {
+                throw new IOException("Não é possível visualizar o livro");
+            }
+        } catch (IOException err) {
+            DialogFactory.showDialog(DialogType.ERROR, "Erro ao Visualizar o Livro", err.getMessage());
+            err.printStackTrace();
+        }
+    };
 
-        MFXTableColumn<Book> isbnColumn = new MFXTableColumn<>("ISBN", true, Comparator.comparing(Book::getISBN));
-        MFXTableColumn<Book> titleColumn = new MFXTableColumn<>("Título", true, Comparator.comparing(Book::getTitulo));
-        MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("Autor", true, Comparator.comparing(Book::getAutor));
-        MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("Editora", true,
-                Comparator.comparing(Book::getEditora));
-        MFXTableColumn<Book> dateColumn = new MFXTableColumn<>("Data de Publicação", true,
-                Comparator.comparing(Book::getAno_publicacao));
+    private EventHandler<ActionEvent> editEvent = (e) -> {
+        try {
+            EditBook editBook = Window.<EditBook>createWithController(FXMLResource.EDIT_BOOK, 700, 500);
+            if (editBook != null) {
+                String isbnStr = ((Labeled) ((MFXButton) e.getSource()).getParent()).getText();
+                Book book = BookService.getLivro(isbnStr);
+                if (book != null) {
+                    editBook.setBook(book);
+                } else {
+                    throw new IOException("O Livro não existe");
+                }
+            } else {
+                throw new IOException("Não é possível editar o livro");
+            }
+        } catch (IOException err) {
+            DialogFactory.showDialog(DialogType.ERROR, "Erro ao Editar o Livro", err.getMessage());
+            err.printStackTrace();
+        }
+    };
 
-        isbnColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getISBN));
-        titleColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getTitulo));
-        authorColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getAutor));
-        publisherColumn.setRowCellFactory(book -> new MFXTableRowCell<>((bookModel) -> {
-            String publisher = book.getEditora();
+    private EventHandler<ActionEvent> delEvent = (e) -> {
+        String isbnStr = ((Labeled) ((MFXButton) e.getSource()).getParent().getParent()).getText();
+        Book book = BookService.getLivro(isbnStr);
+        if (book != null) {
+            String msg = """
+
+                    Tem certeza de que deseja excluir o Livro?
+
+                    ISBN: %d
+                    Título: %s
+                    Autor: %s
+                    """.formatted(book.getISBN(), book.getTitulo(), book.getAutor());
+
+            EventHandler<MouseEvent> eventConfirm = (event) -> {
+                if (BookService.deleteLivro(book)) {
+                    DialogFactory.showDialog(DialogType.INFO, "Excluir Livro",
+                            "O Livro foi excluído com sucesso");
+                } else {
+                    DialogFactory.showDialog(DialogType.ERROR, "Excluir Livro",
+                            "Não foi possível excluir o livro");
+                }
+            };
+
+            DialogFactory.showDialog(DialogType.WARNING, "Excluir Livro", msg, eventConfirm);
+        }
+    };
+
+    private void tableInit() {
+        TableUtil<Book> tableUtil = new TableUtil<>();
+
+        var columns = table.getTableColumns();
+        columns.add(tableUtil.createColumn("ISBN", Comparator.comparing(Book::getISBN), Book::getISBN));
+        columns.add(tableUtil.createColumn("Título", Comparator.comparing(Book::getTitulo), Book::getTitulo));
+        columns.add(tableUtil.createColumn("Autor", Comparator.comparing(Book::getAutor), Book::getAutor));
+        columns.add(tableUtil.createColumn("Editora", Comparator.comparing(Book::getEditora), (bookModel) -> {
+            String publisher = bookModel.getEditora();
             return publisher != null ? publisher : "";
         }));
-        dateColumn.setRowCellFactory(book -> new MFXTableRowCell<>((bookModel) -> {
-            LocalDate date = book.getAno_publicacao();
-            return date != null ? date.format(format) : "";
-        }));
-
-        MFXTableColumn<Book> actionColumn = new MFXTableColumn<Book>("");
-        actionColumn.setRowCellFactory(book -> {
-            MFXTableRowCell<Book, Long> cell = new MFXTableRowCell<Book, Long>(Book::getISBN);
-
-            MFXButton seeBtn = new MFXButton(null, new MFXFontIcon("fas-eye"));
-            MFXButton editBtn = new MFXButton(null, new MFXFontIcon("fas-pen-to-square"));
-            MFXButton delBtn = new MFXButton(null, new MFXFontIcon("fas-trash-can"));
-
-            seeBtn.getStyleClass().add("button-gray");
-            editBtn.getStyleClass().add("button-blue");
-            delBtn.getStyleClass().add("button-red");
-            seeBtn.setOnAction((event) -> {
-                try {
-                    Book bookData = BookService.getLivro(cell.getText());
-                    if (bookData != null) {
-                        FXMLLoader fxml = Window.loadFXMLResource(FXMLResource.Book_Details);
-                        Parent root = fxml.load();
-                        Window.create(root, FXMLResource.Book_Details.getTitle(), 800, 500);
-
-                        BookDetails bookDetails = fxml.getController();
-                        bookDetails.setBook(bookData);
-                    } else {
-                        throw new Exception();
-                    }
-                } catch (Exception err) {
-                    DialogFactory.showDialog(DialogType.ERROR, "Ver Livro",
-                            "Não foi possível visualizar o livro");
-
-                    err.printStackTrace();
-                }
-            });
-            editBtn.setOnAction((event) -> {
-                try {
-                    Book bookData = BookService.getLivro(cell.getText());
-                    if (bookData != null) {
-                        FXMLLoader fxml = Window.loadFXMLResource(FXMLResource.EDIT_BOOK);
-                        Parent root = fxml.load();
-                        Window.create(root, FXMLResource.EDIT_BOOK.getTitle(), 700, 500);
-
-                        EditBook editBook = fxml.getController();
-                        editBook.setBook(bookData);
-                    } else {
-                        throw new Exception();
-                    }
-                } catch (Exception err) {
-                    DialogFactory.showDialog(DialogType.ERROR, "Editar Livro",
-                            "Não foi possível editar o livro");
-
-                    err.printStackTrace();
-                }
-            });
-            delBtn.setOnAction((event) -> {
-                Book bookData = BookService.getLivro(cell.getText());
-                if (bookData != null) {
-                    String msg = """
-
-                            Tem certeza de que deseja excluir o Livro?
-
-                            ISBN: %d
-                            Título: %s
-                            Autor: %s
-                            """.formatted(bookData.getISBN(), bookData.getTitulo(), bookData.getAutor());
-                    EventHandler<MouseEvent> eventConfirm = (e) -> {
-                        if (BookService.deleteLivro(bookData)) {
-                            DialogFactory.showDialog(DialogType.INFO, "Excluir Livro",
-                                    "O Livro foi excluído com sucesso");
-
-                            data.removeIf(bookM -> {
-                                try {
-                                    long isbnLong = Long.parseLong(cell.getText());
-                                    return bookM.getISBN() == isbnLong;
-                                } catch (NumberFormatException numErr) {
-                                    return false;
-                                }
-                            });
-                        } else {
-                            DialogFactory.showDialog(DialogType.ERROR, "Excluir Livro",
-                                    "Não foi possível excluir o livro");
-                        }
-                    };
-
-                    DialogFactory.showDialog(DialogType.WARNING, "Excluir Livro", msg, eventConfirm);
-                }
-            });
-
-            cell.setLeadingGraphic(seeBtn);
-            cell.setGraphic(editBtn);
-            cell.setTrailingGraphic(delBtn);
-            cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-            cell.setWrapText(true);
-            return cell;
-        });
-
-        table.getTableColumns().add(isbnColumn);
-        table.getTableColumns().add(titleColumn);
-        table.getTableColumns().add(authorColumn);
-        table.getTableColumns().add(publisherColumn);
-        table.getTableColumns().add(dateColumn);
-        table.getTableColumns().add(actionColumn);
+        columns.add(tableUtil.createColumn("Data de Publicação", Comparator.comparing(Book::getAno_publicacao),
+                (bookModel) -> {
+                    LocalDate date = bookModel.getAno_publicacao();
+                    return date != null ? date.format(format) : "";
+                }));
+        columns.add(tableUtil.createActions(Book::getISBN, seeEvent, editEvent, delEvent));
 
         table.setItems(data);
         table.autosizeColumnsOnInitialization();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         dropdown.setItems(FXCollections.observableArrayList(SEARCH.values()));
         dropdown.getSelectionModel().selectItem(SEARCH.Título);
+
+        search();
+        tableInit();
     }
 
     @FXML
@@ -210,5 +176,7 @@ public class Books implements Initializable {
                 data.setAll(booksByCategory);
                 break;
         }
+
+        results.setText(Integer.toString(data.size()));
     }
 }

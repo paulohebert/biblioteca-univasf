@@ -85,7 +85,7 @@ public class EditBook implements Initializable {
             book.setNumero_copias_totais(amountInt);
         } catch (NumberFormatException amoutErr) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
-                    "O Número de Cópias deve ser um valor numérico");
+                    "O Número de Cópias deve ser um valor numérico", e);
             return;
         }
 
@@ -96,7 +96,7 @@ public class EditBook implements Initializable {
             book.setNumero_paginas(pageCountInt);
         } catch (NumberFormatException amoutErr) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
-                    "O Número de Páginas deve ser um valor numérico");
+                    "O Número de Páginas deve ser um valor numérico", e);
             return;
         }
 

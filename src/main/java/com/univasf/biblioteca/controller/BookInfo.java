@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BookDetails implements Initializable {
+public class BookInfo implements Initializable {
     private Book book = null;
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

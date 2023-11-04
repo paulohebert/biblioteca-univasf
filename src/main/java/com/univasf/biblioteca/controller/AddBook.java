@@ -81,10 +81,10 @@ public class AddBook implements Initializable {
             book.setISBN(isbnLong);
         } catch (NumberFormatException isbnErr) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
-                    "O ISBN deve ser um valor numérico");
+                    "O ISBN deve ser um valor numérico", e);
             return;
         } catch (IOException ioErr) {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro", ioErr.getMessage());
+            DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro", ioErr.getMessage(), e);
             return;
         }
 
@@ -98,7 +98,7 @@ public class AddBook implements Initializable {
             book.setNumero_copias_totais(amountInt);
         } catch (NumberFormatException amoutErr) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
-                    "O Número de Cópias deve ser um valor numérico");
+                    "O Número de Cópias deve ser um valor numérico", e);
             return;
         }
 
@@ -109,7 +109,7 @@ public class AddBook implements Initializable {
             book.setNumero_paginas(pageCountInt);
         } catch (NumberFormatException amoutErr) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
-                    "O Número de Páginas deve ser um valor numérico");
+                    "O Número de Páginas deve ser um valor numérico", e);
             return;
         }
 

@@ -11,8 +11,10 @@ import io.github.palexdev.materialfx.dialogs.MFXGenericDialogBuilder;
 import io.github.palexdev.materialfx.dialogs.MFXStageDialog;
 import io.github.palexdev.materialfx.enums.ScrimPriority;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -45,6 +47,12 @@ abstract class Dialog {
                 this.box.close();
             }
         });
+    }
+
+    public void setOwner(Event e) {
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        this.box.initOwner(stage);
+        this.box.setOwnerNode((Pane) stage.getScene().getRoot());
     }
 
     public void show() {
@@ -126,6 +134,16 @@ public class DialogFactory {
     public static void showDialog(DialogType type, String title, String text) {
         Dialog dialog = createDialog(type, title, text, null);
         if (dialog != null) {
+            dialog.show();
+        }
+    }
+
+    public static void showDialog(DialogType type, String title, String text, Event event) {
+        Dialog dialog = createDialog(type, title, text, null);
+        if (dialog != null) {
+            if (event != null) {
+                dialog.setOwner(event);
+            }
             dialog.show();
         }
     }

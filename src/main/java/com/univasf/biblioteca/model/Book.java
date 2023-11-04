@@ -13,12 +13,15 @@ import jakarta.persistence.Table;
 public class Book {
     @Id
     private Long ISBN;
+    @Column(nullable = false)
     private String titulo;
+    @Column(nullable = false)
     private String autor;
     private String editora;
     private LocalDate ano_publicacao;
     private String categoria;
     private int numero_paginas;
+    @Column(nullable = false)
     private int numero_copias_totais;
     @Lob
     @Column(columnDefinition = "TEXT")

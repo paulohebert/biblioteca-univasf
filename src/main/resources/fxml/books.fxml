@@ -7,6 +7,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -78,10 +79,21 @@
             </MFXButton>
          </children>
       </HBox>
-      <MFXScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
-         <content>
-            <MFXTableView fx:id="table" footerVisible="false" maxHeight="10000.0" maxWidth="10000.0" />
-         </content>
-      </MFXScrollPane>
+      <VBox spacing="4.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados:" />
+               <Text fx:id="results" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </HBox>
+            <MFXScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+               <content>
+                  <MFXTableView fx:id="table" footerVisible="false" maxHeight="10000.0" maxWidth="10000.0" />
+               </content>
+            </MFXScrollPane>
+         </children>
+      </VBox>
    </children>
 </VBox>

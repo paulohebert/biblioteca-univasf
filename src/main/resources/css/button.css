@@ -116,6 +116,7 @@
 .button-gray,
 .button-gray:hover,
 .button-gray:focused {
+    -fx-text-fill: whitesmoke;
     -fx-background-radius: 7;
 }
 

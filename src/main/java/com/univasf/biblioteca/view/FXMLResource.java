@@ -9,7 +9,8 @@ public enum FXMLResource {
     ADD_BOOK("/fxml/addBook.fxml", "Cadastrar Livro"),
     EDIT_BOOK("/fxml/editBook.fxml", "Editar Livro"),
     EDIT_USER("/fxml/editUser.fxml", "Editar Usuário"),
-    Book_Details("/fxml/bookDetails.fxml", "Dados do Livro"),
+    BOOK_INFO("/fxml/bookInfo.fxml", "Dados do Livro"),
+    USER_INFO("/fxml/userInfo.fxml", "Dados do Usuário"),
     BOOKS("/fxml/books.fxml", "Livros"),
     USERS("/fxml/users.fxml", "Usuários"),
     CONFIG("/fxml/config.fxml", "Configuração");
