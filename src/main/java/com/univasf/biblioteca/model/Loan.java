@@ -1,10 +1,20 @@
 package com.univasf.biblioteca.model;
 
-import jakarta.persistence.*;
-import com.univasf.biblioteca.service.LoanService;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
-import java.util.Calendar;
+
+import com.univasf.biblioteca.service.LoanService;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "loans")
@@ -21,9 +31,9 @@ public class Loan {
     @Temporal(TemporalType.DATE)
     private Date data_emprestimo;
     @Temporal(TemporalType.DATE)
-    private Date data_devolucao;
+    private Date data_vencimento_emprestimo;
     @Temporal(TemporalType.DATE)
-    private Date data_devolucao_maxima;
+    private Date data_devolucao;
 
     // ........................................................................//
     // Construtores
@@ -41,7 +51,7 @@ public class Loan {
         c.add(Calendar.DATE, 7);
 
         // Data de devolucao máxima vai ser 7 dias após a data de emprestimo
-        this.data_devolucao_maxima = c.getTime();
+        this.data_vencimento_emprestimo = c.getTime();
 
     }
 
@@ -51,12 +61,40 @@ public class Loan {
         return this.id;
     }
 
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public Long getCPFUsuario() {
+        return usuario.getCpf();
+    }
+
+    public String getNomeUsuario() {
+        return usuario.getNome();
+    }
+
+    public Book getLivro() {
+        return livro;
+    }
+
+    public Long getISBNLivro() {
+        return livro.getISBN();
+    }
+
+    public String getTituloLivro() {
+        return livro.getTitulo();
+    }
+
     public Date getData_emprestimo() {
         return this.data_emprestimo;
     }
 
-    public Date get_DataPrevista() {
-        return this.data_devolucao_maxima;
+    public Date getData_vencimento_emprestimo() {
+        return data_vencimento_emprestimo;
+    }
+
+    public Date getData_devolucao() {
+        return data_devolucao;
     }
 
     public Book getLivro_emprestimo() {
@@ -69,23 +107,32 @@ public class Loan {
 
     // ........................................................................//
     // Metodo que renova um emprestimo por mais 7 dias
-    public void Renovacao() {
-        Calendar c = Calendar.getInstance();
-        c.setTime(this.data_devolucao_maxima);
-        c.add(Calendar.DATE, 7);
-        this.data_devolucao_maxima = c.getTime();
-        LoanService.updateEmprestimo(this);
+    public boolean renovacao() {
+        try {
+            Calendar c = Calendar.getInstance();
+            c.setTime(this.data_vencimento_emprestimo);
+            c.add(Calendar.DATE, 7);
+            this.data_vencimento_emprestimo = c.getTime();
+            LoanService.updateEmprestimo(this);
+            return true;
+        } catch (Exception err) {
+            return false;
+        }
     }
 
     // ........................................................................//
     // Metodo que devolve um livro registrando a data no banco de dados
-    public void Devolucao() {
+    public boolean devolucao() {
         if (this.data_devolucao == null) {
-            Calendar c = Calendar.getInstance();
-            this.data_devolucao = c.getTime();
-            LoanService.updateEmprestimo(this);
-        } else {
-            System.out.println("Livro já Devolvido");
+            try {
+                Calendar c = Calendar.getInstance();
+                this.data_devolucao = c.getTime();
+                LoanService.updateEmprestimo(this);
+                return true;
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
         }
+        return false;
     }
 }

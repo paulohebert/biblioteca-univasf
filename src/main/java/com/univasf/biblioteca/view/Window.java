@@ -54,7 +54,6 @@ public class Window {
         Parent root = loadFXML(fxml);
         Scene scene = new Scene(root, width, height);
         MFXThemeManager.addOn(scene, Themes.DEFAULT);
-        scene.getStylesheets().add(App.class.getResource("/css/styles.css").toExternalForm());
 
         setTitle(fxml);
         mainStage.getIcons().add(new Image(App.class.getResourceAsStream("/img/icon.png")));
@@ -88,11 +87,11 @@ public class Window {
 
         Scene scene = new Scene(root, width, height);
         MFXThemeManager.addOn(scene, Themes.DEFAULT);
-        scene.getStylesheets().add(App.class.getResource("/css/styles.css").toExternalForm());
 
         newStage.setScene(scene);
         newStage.setTitle(title);
         newStage.setResizable(false);
+        newStage.getIcons().add(new Image(App.class.getResourceAsStream("/img/icon.png")));
 
         newStage.setX(mainStage.getX() + (Window.width - width) / 2);
         newStage.setY(mainStage.getY() + (Window.height - height) / 2);

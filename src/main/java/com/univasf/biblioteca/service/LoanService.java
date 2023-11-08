@@ -1,21 +1,27 @@
 package com.univasf.biblioteca.service;
 
 import java.util.List;
+import java.util.UUID;
+
+import org.hibernate.Session;
 import org.hibernate.query.Query;
+
 import com.univasf.biblioteca.model.Loan;
 import com.univasf.biblioteca.util.HibernateUtil;
-import org.hibernate.Session;
 
 public class LoanService {
 
     // ........................................................................//
     // Salva um emprestimo no banco de dados
-    public static void saveEmprestimo(Loan emprestimo) {
+    public static boolean saveEmprestimo(Loan emprestimo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             session.persist(emprestimo);
             session.getTransaction().commit();
+            return true;
+        } catch (Exception err) {
+            return false;
         } finally {
             session.close();
         }
@@ -39,7 +45,7 @@ public class LoanService {
 
     // ........................................................................//
     // Retorna um emprestimo usando seu id como parametro
-    public static Loan getEmprestimo(Long id) {
+    public static Loan getEmprestimo(UUID id) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -53,12 +59,15 @@ public class LoanService {
 
     // ........................................................................//
     // Atualiza um emprestimo no banco de dados
-    public static void updateEmprestimo(Loan emprestimo) {
+    public static boolean updateEmprestimo(Loan emprestimo) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
             session.merge(emprestimo);
             session.getTransaction().commit();
+            return true;
+        } catch (Exception err) {
+            return false;
         } finally {
             session.close();
         }
@@ -81,7 +90,7 @@ public class LoanService {
 
     // ........................................................................//
     // Deleta um emprestimo usando seu id como parametro
-    public static void deleteEmprestimo(Long id) {
+    public static boolean deleteEmprestimo(UUID id) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -89,10 +98,32 @@ public class LoanService {
             if (emprestimo != null) {
                 session.remove(emprestimo);
                 session.getTransaction().commit();
+                return true;
             }
+            return false;
+        } catch (Exception err) {
+            return false;
         } finally {
             session.close();
         }
+    }
+
+    public static boolean deleteLoan(Loan loan) {
+        Session session = HibernateUtil.getSession();
+        boolean status = false;
+        try {
+            session.beginTransaction();
+            if (loan != null) {
+                session.remove(loan);
+                session.getTransaction().commit();
+                status = true;
+            }
+        } catch (Exception err) {
+            err.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
 
     // ........................................................................//
@@ -128,6 +159,42 @@ public class LoanService {
             return emprestimos;
         } finally {
             // Close the session
+            session.close();
+        }
+    }
+
+    public static List<Loan> getAllLoansByCPF(String cpf, boolean isOutstandingLoan) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM Loan WHERE lower(CAST(usuario.cpf AS text)) LIKE lower(:cpf)";
+            if (isOutstandingLoan) {
+                hql += " AND data_devolucao IS NULL";
+            }
+            Query<Loan> query = session.createQuery(hql, Loan.class);
+            query.setParameter("cpf", "%" + cpf + "%");
+            List<Loan> loans = query.list();
+            session.getTransaction().commit();
+            return loans;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Loan> getAllLoansByISBN(String isbn, boolean isOutstandingLoan) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM Loan WHERE lower(CAST(livro.ISBN AS text)) LIKE lower(:isbn)";
+            if (isOutstandingLoan) {
+                hql += " AND data_devolucao IS NULL";
+            }
+            Query<Loan> query = session.createQuery(hql, Loan.class);
+            query.setParameter("isbn", "%" + isbn + "%");
+            List<Loan> loans = query.list();
+            session.getTransaction().commit();
+            return loans;
+        } finally {
             session.close();
         }
     }
@@ -203,16 +270,15 @@ public class LoanService {
 
     // ........................................................................//
     // Retorna o número de emprestimos em aberto que um livro tem
-    public static int getNumeroEmprestimosAbertosPorLivro(Long ISBN_Livro) {
+    public static Long getNumeroEmprestimosAbertosPorLivro(Long ISBN_Livro) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Loan WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
-            Query<Loan> query = session.createQuery(hql, Loan.class);
+            String hql = "SELECT COUNT(*) FROM Loan WHERE livro.ISBN = :ISBN_Livro AND data_devolucao IS NULL";
+            Query<Long> query = session.createQuery(hql, Long.class);
             query.setParameter("ISBN_Livro", ISBN_Livro);
-            List<Loan> emprestimos = query.list();
-            session.getTransaction().commit();
-            return emprestimos.size();
+            Long emprestimos = query.uniqueResult();
+            return emprestimos;
         } finally {
             session.close();
         }

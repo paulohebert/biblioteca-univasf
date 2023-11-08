@@ -81,6 +81,14 @@
     -mfx-auto-clip: true;
 }
 
+.button-green {
+    -fx-background-color: #32CD32;
+}
+
+.button-green:focused {
+    -fx-background-color: derive(#32CD32, -20%);
+}
+
 .button-red {
     -fx-background-color: #ff4444;
 }
@@ -110,6 +118,9 @@
 .button-blue,
 .button-blue:hover,
 .button-blue:focused,
+.button-green,
+.button-green:hover,
+.button-green:focused,
 .button-red,
 .button-red:hover,
 .button-red:focused,
@@ -121,6 +132,7 @@
 }
 
 .button-blue MFXFontIcon,
+.button-green MFXFontIcon,
 .button-red MFXFontIcon,
 .button-gray MFXFontIcon {
     -mfx-color: whitesmoke;

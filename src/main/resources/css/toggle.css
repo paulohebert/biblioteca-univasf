@@ -46,7 +46,7 @@
 
 .mfx-toggle-button {
 	-mfx-main: -primary;
-	-mfx-secondary: -secondary;
+	-mfx-secondary: gray;
 	-fx-text-fill: #000000;
 }
 

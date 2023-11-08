@@ -1,8 +1,8 @@
 * {
     -primary: rgb(33, 150, 243);
     -primary-50: rgba(33, 150, 243, 0.5);
-    -secondary: #00152d;
+    -secondary: rgb(0, 21, 45);
 
-    -primary-gradient: linear-gradient(to right bottom, -primary, -secondary);
-    -secondary-gradient: linear-gradient(to right bottom, -secondary, -primary);
+    -primary-gradient: radial-gradient(center 70% 40% , radius 70%, #3DA5F5, -primary);
+    -secondary-gradient: radial-gradient(center 100% 100% , radius 100%, #00152D, -secondary);
 }

@@ -23,9 +23,41 @@
     -fx-fill: whitesmoke;
 }
 
+.menu-bar {
+    -fx-background-color: whitesmoke;
+    -fx-border-width: 0 0 0.4 0;
+    -fx-border-style: solid;
+    -fx-border-color: -secondary;
+    -fx-padding: 2.5;
+}
+
+.menu-bar .menu {
+    -fx-padding: 2 10;
+}
+
+.menu-bar .menu-item {
+    -fx-padding: 5 7;
+}
+
+.menu-bar .menu:hover,
+.menu-bar .menu:showing,
+.menu-bar .menu:selected,
+.menu-bar .menu:focused,
+.menu-bar .menu-item:hover,
+.menu-bar .menu-item:selected,
+.menu-bar .menu-item:focused {
+    -fx-background-color: -primary-gradient;
+    -fx-background-radius: 4;
+}
+
+.menu-bar .context-menu {
+    -fx-background-radius: 0 0 4 4;
+}
+
 .sidebar {
-    -fx-background-color: -secondary;
+    -fx-background-color: -secondary-gradient;
     -fx-background-radius: 0 0 20 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 20, 0, 4, 7);
 }
 
 .sign-out,
