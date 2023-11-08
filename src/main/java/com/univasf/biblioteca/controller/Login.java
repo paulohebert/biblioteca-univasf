@@ -72,7 +72,7 @@ public class Login implements Initializable {
             user = UserService.getUser(cpfLong);
         } catch (NumberFormatException numErr) {
             try {
-                user = UserService.getUserByUserName(cpfUsername.getText());
+                user = UserService.getUserByUsername(cpfUsername.getText());
             } catch (Exception err) {
                 user = null;
             }
@@ -85,9 +85,9 @@ public class Login implements Initializable {
             Session.setUser(user);
 
             if (user.getTipoAdministrador()) {
-                Window.change(FXMLResource.ADMIN);
+                Window.change(FXMLResource.ADMIN_PANEL);
             } else {
-                Window.change(FXMLResource.USER);
+                Window.change(FXMLResource.USER_PANEL);
             }
         } else {
             validate(false);

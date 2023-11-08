@@ -4,6 +4,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -17,7 +18,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Admin">
+<AnchorPane stylesheets="@../css/styles.css"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.UserPanel">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -57,12 +60,12 @@
             </MenuBar>
             <HBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox spacing="10.0" prefWidth="270.0" styleClass="sidebar">
+                  <VBox prefWidth="270.0" spacing="10.0" styleClass="sidebar">
                      <children>
                         <VBox alignment="CENTER">
                            <children>
                               <MFXFontIcon color="#048be3" description="fas-book-open-reader" size="70" />
-                              <Text style="-fx-fill: white;" text="BIBLIOTECA">
+                              <Text fontSmoothingType="LCD" style="-fx-fill: white;" text="BIBLIOTECA">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -77,41 +80,30 @@
                         </VBox>
                         <VBox spacing="14.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text fx:id="greeting" wrappingWidth="250.0" style="-fx-fill: white;">
+                              <Label fx:id="greeting" textFill="WHITE" textOverrun="ELLIPSIS">
                                  <font>
                                     <Font size="17.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
-                              </Text>
-                              <MFXRectangleToggleNode fx:id="reportBtn" maxWidth="400" onAction="#loadReportPanel" selected="true">
-                                 <graphic>
-                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                       <children>
-                                          <MFXFontIcon description="fas-chart-line" size="30" />
-                                          <Text text="Relatório" />
-                                       </children>
-                                    </HBox>
-                                 </graphic>
-                              </MFXRectangleToggleNode>
-                              <Separator />
-                              <MFXRectangleToggleNode fx:id="booksBtn" maxWidth="400" onAction="#loadBooksPanel">
+                              </Label>
+                              <MFXRectangleToggleNode fx:id="booksBtn" maxWidth="400" onAction="#loadBooksPanel" selected="true">
                                  <graphic>
                                     <HBox alignment="CENTER_LEFT" spacing="17.0">
                                        <children>
                                           <MFXFontIcon description="fas-book-open" size="30" />
-                                          <Text text="Livros" />
+                                          <Text fontSmoothingType="LCD" text="Livros" />
                                        </children>
                                     </HBox>
                                  </graphic>
                               </MFXRectangleToggleNode>
-                              <MFXRectangleToggleNode fx:id="usersBtn" maxWidth="400" onAction="#loadUsersPanel">
+                              <MFXRectangleToggleNode fx:id="loansBtn" maxWidth="400" onAction="#loadLoansPanel">
                                  <graphic>
                                     <HBox alignment="CENTER_LEFT" spacing="14.0">
                                        <children>
-                                          <MFXFontIcon description="fas-users" size="30" />
-                                          <Text text="Usuários" />
+                                          <MFXFontIcon description="fas-handshake" size="30" />
+                                          <Text fontSmoothingType="LCD" text="Empréstimos" />
                                        </children>
                                     </HBox>
                                  </graphic>
@@ -122,7 +114,7 @@
                                     <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
                                           <MFXFontIcon description="fas-gear" size="30" />
-                                          <Text text="Configuração" />
+                                          <Text fontSmoothingType="LCD" text="Configuração" />
                                        </children>
                                     </HBox>
                                  </graphic>

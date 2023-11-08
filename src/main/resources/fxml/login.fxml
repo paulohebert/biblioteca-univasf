@@ -14,7 +14,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane styleClass="rootPane" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Login">
+<AnchorPane stylesheets="@../css/styles.css" styleClass="rootPane"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Login">
    <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <VBox alignment="CENTER" spacing="40.0">
@@ -26,7 +27,7 @@
                </ImageView>
                <VBox fx:id="box" styleClass="box-white" alignment="CENTER" spacing="20">
                   <MFXFontIcon color="#048be3" description="fas-book-open-reader" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA"/>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA"/>
                   <MFXTextField fx:id="cpfUsername" floatingText="CPF ou Username" styleClass="field" />
                   <MFXPasswordField fx:id="password" floatingText="SENHA" styleClass="field" />
                   <HBox alignment="TOP_CENTER" spacing="40.0">

@@ -13,14 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox spacing="14.0" VBox.vgrow="ALWAYS"
-   xmlns="http://javafx.com/javafx/20.0.1"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Books">
+<VBox spacing="14.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Books">
    <children>
       <HBox spacing="10.0">
          <children>
             <MFXFontIcon description="fas-book" size="40" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
+            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
                <font>
                   <Font size="28.0" />
                </font>
@@ -31,7 +29,7 @@
          <children>
             <MFXTextField fx:id="searchField" floatMode="DISABLED" promptText="Pesquisar">
                <trailingIcon>
-                  <MFXButton onAction="#search" contentDisplay="GRAPHIC_ONLY" defaultButton="true">
+                  <MFXButton contentDisplay="GRAPHIC_ONLY" defaultButton="true" onAction="#search">
                      <graphic>
                         <MFXFontIcon description="fas-magnifying-glass" />
                      </graphic>
@@ -50,7 +48,7 @@
                   <String fx:value="dropdown" />
                </styleClass>
             </MFXComboBox>
-            <MFXButton onAction="#search" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
+            <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1" onAction="#search">
                <styleClass>
                   <String fx:value="button-circle" />
                   <String fx:value="button-ripple-gray" />
@@ -59,7 +57,7 @@
                   <MFXFontIcon description="fas-rotate" size="17" />
                </graphic>
             </MFXButton>
-            <MFXButton onAction="#addBook" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
+            <MFXButton fx:id="addBookButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1" onAction="#addBook">
                <styleClass>
                   <String fx:value="button-circle" />
                   <String fx:value="button-ripple-gray" />
@@ -68,22 +66,13 @@
                   <MFXFontIcon description="fas-plus" size="17" />
                </graphic>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
-               <styleClass>
-                  <String fx:value="button-circle" />
-                  <String fx:value="button-ripple-red" />
-               </styleClass>
-               <graphic>
-                  <MFXFontIcon description="fas-trash-can" size="17" />
-               </graphic>
-            </MFXButton>
          </children>
       </HBox>
       <VBox spacing="4.0" VBox.vgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados:" />
-               <Text fx:id="results" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados:" />
+               <Text fx:id="results" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>

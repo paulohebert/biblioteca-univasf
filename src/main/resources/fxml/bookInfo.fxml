@@ -56,13 +56,13 @@
                         </HBox>
                         <HBox spacing="10.0">
                            <children>
-                              <MFXTextField fx:id="author" floatMode="BORDER" floatingText="Autor" prefWidth="275.0">
+                              <MFXTextField fx:id="author" floatMode="BORDER" floatingText="Autor" prefWidth="275.0" textLimit="255">
                                  <styleClass>
                                     <String fx:value="field" />
                                     <String fx:value="field-border" />
                                  </styleClass>
                               </MFXTextField>
-                              <MFXTextField fx:id="publisher" floatMode="BORDER" floatingText="Editora" prefWidth="285.0">
+                              <MFXTextField fx:id="publisher" floatMode="BORDER" floatingText="Editora" prefWidth="285.0" textLimit="255">
                                  <styleClass>
                                     <String fx:value="field" />
                                     <String fx:value="field-border" />
@@ -78,7 +78,7 @@
                         </HBox>
                         <HBox spacing="10.0">
                            <children>
-                              <MFXTextField fx:id="category" floatMode="BORDER" floatingText="Categoria" prefWidth="412.0">
+                              <MFXTextField fx:id="category" floatMode="BORDER" floatingText="Categoria" prefWidth="412.0" textLimit="255">
                                  <styleClass>
                                     <String fx:value="field" />
                                     <String fx:value="field-border" />

@@ -25,14 +25,14 @@
       <HBox spacing="40.0">
          <children>
             <HBox fx:id="cpf" alignment="CENTER" spacing="10.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CPF:">
+               <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF:">
                   <font>
                      <Font size="17.0" />
                   </font>
                </Text>
             </HBox>
             <HBox fx:id="username" alignment="CENTER" spacing="10.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+               <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
                   <font>
                      <Font size="17.0" />
                   </font>
@@ -45,7 +45,7 @@
             <HBox spacing="7.0" alignment="CENTER">
                <children>
                   <HBox fx:id="name" alignment="CENTER" spacing="10.0">
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
+                     <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:">
                         <font>
                            <Font size="17.0" />
                         </font>
@@ -61,7 +61,7 @@
             <HBox spacing="7.0" alignment="CENTER">
                <children>
                   <HBox fx:id="email" alignment="CENTER" spacing="10.0">
-                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail:">
+                     <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="E-mail:">
                         <font>
                            <Font size="17.0" />
                         </font>
@@ -79,7 +79,7 @@
       <HBox spacing="7.0" alignment="CENTER_LEFT">
          <children>
             <HBox fx:id="address" alignment="CENTER" spacing="10.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço:">
+               <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço:">
                   <font>
                      <Font size="17.0" />
                   </font>

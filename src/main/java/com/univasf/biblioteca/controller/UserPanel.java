@@ -17,24 +17,18 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
-public class Admin implements Initializable {
+public class UserPanel implements Initializable {
     private ToggleGroup toggleGroup;
 
     @FXML
-    private Text greeting;
+    private Label greeting;
     @FXML
-    private MFXRectangleToggleNode reportBtn;
-    @FXML
-    private MFXRectangleToggleNode booksBtn;
-    @FXML
-    private MFXRectangleToggleNode usersBtn;
-    @FXML
-    private MFXRectangleToggleNode configBtn;
+    private MFXRectangleToggleNode booksBtn, loansBtn, configBtn;
     @FXML
     private VBox main;
 
@@ -42,9 +36,8 @@ public class Admin implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         toggleGroup = new ToggleGroup();
 
-        reportBtn.setToggleGroup(toggleGroup);
         booksBtn.setToggleGroup(toggleGroup);
-        usersBtn.setToggleGroup(toggleGroup);
+        loansBtn.setToggleGroup(toggleGroup);
         configBtn.setToggleGroup(toggleGroup);
 
         ToggleButtonsUtil.addAlwaysOneSelectedSupport(toggleGroup);
@@ -55,7 +48,7 @@ public class Admin implements Initializable {
         }
 
         try {
-            Window.changeNode(main, FXMLResource.REPORT);
+            Window.changeNode(main, FXMLResource.BOOKS);
         } catch (IOException err) {
             err.printStackTrace();
         }
@@ -77,18 +70,13 @@ public class Admin implements Initializable {
     }
 
     @FXML
-    public void loadReportPanel(Event e) throws IOException {
-        Window.changeNode(main, FXMLResource.REPORT);
-    }
-
-    @FXML
     public void loadBooksPanel(Event e) throws IOException {
         Window.changeNode(main, FXMLResource.BOOKS);
     }
 
     @FXML
-    public void loadUsersPanel(Event e) throws IOException {
-        Window.changeNode(main, FXMLResource.USERS);
+    public void loadLoansPanel(Event e) throws IOException {
+        Window.changeNode(main, FXMLResource.LOANS);
     }
 
     @FXML
@@ -98,7 +86,7 @@ public class Admin implements Initializable {
 
     @FXML
     public void addBook() throws IOException {
-        Window.create(FXMLResource.ADD_BOOK, 700, 500);
+        Window.create(FXMLResource.ADD_LOAN, 700, 400);
     }
 
 }

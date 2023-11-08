@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.univasf.biblioteca.model.Book;
+import com.univasf.biblioteca.model.User;
 import com.univasf.biblioteca.service.BookService;
 import com.univasf.biblioteca.util.DialogFactory;
 import com.univasf.biblioteca.util.DialogFactory.DialogType;
+import com.univasf.biblioteca.util.Session;
 import com.univasf.biblioteca.util.TableUtil;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
@@ -33,6 +35,7 @@ import javafx.scene.text.Text;
 public class Books implements Initializable {
     private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private ObservableList<Book> data = FXCollections.observableArrayList();
+    private User user;
     @FXML
     private MFXTableView<Book> table;
     @FXML
@@ -41,6 +44,8 @@ public class Books implements Initializable {
     private MFXComboBox<SEARCH> dropdown;
     @FXML
     private Text results;
+    @FXML
+    private MFXButton addBookButton;
 
     public enum SEARCH {
         ISBN,
@@ -94,12 +99,12 @@ public class Books implements Initializable {
         Book book = BookService.getLivro(isbnStr);
         if (book != null) {
             String msg = """
-
                     Tem certeza de que deseja excluir o Livro?
 
                     ISBN: %d
                     Título: %s
                     Autor: %s
+
                     """.formatted(book.getISBN(), book.getTitulo(), book.getAutor());
 
             EventHandler<MouseEvent> eventConfirm = (event) -> {
@@ -132,7 +137,9 @@ public class Books implements Initializable {
                     LocalDate date = bookModel.getAno_publicacao();
                     return date != null ? date.format(format) : "";
                 }));
-        columns.add(tableUtil.createActions(Book::getISBN, seeEvent, editEvent, delEvent));
+        columns.add(tableUtil.createActions(Book::getISBN, seeEvent,
+                user.getTipoAdministrador() ? editEvent : null,
+                user.getTipoAdministrador() ? delEvent : null));
 
         table.setItems(data);
         table.autosizeColumnsOnInitialization();
@@ -140,11 +147,28 @@ public class Books implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dropdown.setItems(FXCollections.observableArrayList(SEARCH.values()));
-        dropdown.getSelectionModel().selectItem(SEARCH.Título);
+        user = Session.getUser();
+        if (user == null) {
+            try {
+                Window.change(FXMLResource.LOGIN);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (user.getTipoAdministrador() == false) {
+                addBookButton.setVisible(false);
+                addBookButton.setManaged(false);
+            }
 
-        search();
-        tableInit();
+            dropdown.setItems(FXCollections.observableArrayList(SEARCH.values()));
+            dropdown.getSelectionModel().selectItem(SEARCH.Título);
+
+            search();
+            if (data.isEmpty()) {
+                data.setAll(new Book[1]);
+            }
+            tableInit();
+        }
     }
 
     @FXML
@@ -158,10 +182,8 @@ public class Books implements Initializable {
         data.clear();
         switch (type) {
             case ISBN:
-                Book booksByISBN = BookService.getLivro(searchField.getText());
-                if (booksByISBN != null) {
-                    data.setAll(booksByISBN);
-                }
+                List<Book> booksByISBN = BookService.getAllBooksByISBN(searchField.getText());
+                data.setAll(booksByISBN);
                 break;
             case Título:
                 List<Book> booksByTitle = BookService.getLivrosPorTitulo(searchField.getText());

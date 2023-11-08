@@ -20,19 +20,6 @@ public class UserService {
         }
     }
 
-    public static List<User> getAllUsers() {
-        Session session = HibernateUtil.getSession();
-        try {
-            session.beginTransaction();
-            Query<User> query = session.createQuery("FROM User", User.class);
-            List<User> users = query.list();
-            session.getTransaction().commit();
-            return users;
-        } finally {
-            session.close();
-        }
-    }
-
     public static User getUser(Long cpf) {
         Session session = HibernateUtil.getSession();
         try {
@@ -54,7 +41,7 @@ public class UserService {
         }
     }
 
-    public static User getUserByUserName(String username) {
+    public static User getUserByUsername(String username) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
@@ -64,6 +51,94 @@ public class UserService {
             User user = query.getSingleResult();
             session.getTransaction().commit();
             return user;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsers() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            Query<User> query = session.createQuery("FROM User", User.class);
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsersByCPF(String cpf) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(CAST(cpf AS text)) LIKE lower(:cpf)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("cpf", "%" + cpf + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsersByUsername(String username) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(nome_usuario) LIKE lower(:nome_usuario)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("nome_usuario", "%" + username + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsersByName(String name) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(nome) LIKE lower(:nome)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("nome", "%" + name + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsersByEmail(String email) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(email) LIKE lower(:email)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("email", "%" + email + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<User> getAllUsersByAddress(String address) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM User WHERE lower(endereco) LIKE lower(:endereco)";
+            Query<User> query = session.createQuery(hql, User.class);
+            query.setParameter("endereco", "%" + address + "%");
+            List<User> users = query.list();
+            session.getTransaction().commit();
+            return users;
         } finally {
             session.close();
         }
@@ -122,51 +197,6 @@ public class UserService {
             session.close();
         }
         return status;
-    }
-
-    public static List<User> getUsersByName(String name) {
-        Session session = HibernateUtil.getSession();
-        try {
-            session.beginTransaction();
-            String hql = "FROM User WHERE lower(nome) LIKE lower(:nome)";
-            Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("nome", "%" + name + "%");
-            List<User> users = query.list();
-            session.getTransaction().commit();
-            return users;
-        } finally {
-            session.close();
-        }
-    }
-
-    public static List<User> getUsersByEmail(String email) {
-        Session session = HibernateUtil.getSession();
-        try {
-            session.beginTransaction();
-            String hql = "FROM User WHERE lower(email) LIKE lower(:email)";
-            Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("email", "%" + email + "%");
-            List<User> users = query.list();
-            session.getTransaction().commit();
-            return users;
-        } finally {
-            session.close();
-        }
-    }
-
-    public static List<User> getUsersByAddress(String address) {
-        Session session = HibernateUtil.getSession();
-        try {
-            session.beginTransaction();
-            String hql = "FROM User WHERE lower(endereco) LIKE lower(:endereco)";
-            Query<User> query = session.createQuery(hql, User.class);
-            query.setParameter("endereco", "%" + address + "%");
-            List<User> users = query.list();
-            session.getTransaction().commit();
-            return users;
-        } finally {
-            session.close();
-        }
     }
 
     public static boolean checkPassword(String passwordToCheck, User user) {

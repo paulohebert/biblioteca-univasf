@@ -13,12 +13,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox spacing="14.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Users">
+<VBox spacing="14.0" VBox.vgrow="ALWAYS"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Users">
    <children>
       <HBox spacing="10.0">
          <children>
             <MFXFontIcon description="fas-user-group" size="40" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários">
+            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários">
                <font>
                   <Font size="28.0" />
                </font>
@@ -80,8 +82,8 @@
       <VBox spacing="4.0" VBox.vgrow="ALWAYS">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
-               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados:" />
-               <Text fx:id="results" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+               <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Resultados:" />
+               <Text fx:id="results" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>

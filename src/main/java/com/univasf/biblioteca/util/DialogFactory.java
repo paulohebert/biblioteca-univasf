@@ -15,11 +15,12 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -111,10 +112,13 @@ public class DialogFactory {
 
     public static Dialog createDialog(DialogType type, String title, String text,
             EventHandler<MouseEvent> eventConfirm) {
-        Text contentText = new Text(text);
+        Label contentText = new Label(text);
         VBox content = new VBox(contentText);
 
+        contentText.setTextOverrun(OverrunStyle.ELLIPSIS);
+        contentText.setMaxWidth(450);
         contentText.setFont(new Font(17));
+        contentText.setAlignment(Pos.CENTER);
         content.setAlignment(Pos.CENTER);
 
         switch (type) {

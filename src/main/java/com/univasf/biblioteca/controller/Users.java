@@ -111,12 +111,12 @@ public class Users implements Initializable {
         User user = UserService.getUser(cpfStr);
         if (user != null) {
             String msg = """
-
                     Tem certeza de que deseja excluir o Usuário?
 
                     CPF: %d
                     Username: %s
                     Nome: %s
+
                     """.formatted(user.getCpf(), user.getNomeUsuario(), user.getNome());
 
             EventHandler<MouseEvent> eventConfirm = (event) -> {
@@ -137,7 +137,8 @@ public class Users implements Initializable {
         TableUtil<User> tableUtil = new TableUtil<>();
 
         var columns = table.getTableColumns();
-        columns.add(tableUtil.createColumn("CPF", Comparator.comparing(User::getCpf), User::getCpf));
+        columns.add(tableUtil.createColumn("CPF", Comparator.comparing(User::getCpf),
+                userModel -> String.format("%011d", userModel.getCpf())));
         columns.add(
                 tableUtil.createColumn("Username", Comparator.comparing(User::getNomeUsuario), User::getNomeUsuario));
         columns.add(tableUtil.createColumn("Nome", Comparator.comparing(User::getNome), User::getNome));
@@ -150,7 +151,7 @@ public class Users implements Initializable {
             return address != null ? address : "";
         }));
         columns.add(tableUtil.createColumn("Administrador", Comparator.comparing(User::getTipoAdministrador),
-                admRowCellFactory, Pos.CENTER));
+                admRowCellFactory, Pos.CENTER, 100));
         columns.add(tableUtil.createActions(User::getCpf, seeEvent, editEvent, delEvent));
 
         table.setItems(data);
@@ -163,6 +164,9 @@ public class Users implements Initializable {
         dropdown.getSelectionModel().selectItem(SEARCH.Nome);
 
         search();
+        if (data.isEmpty()) {
+            data.setAll(new User[1]);
+        }
         tableInit();
     }
 
@@ -177,27 +181,23 @@ public class Users implements Initializable {
         data.clear();
         switch (type) {
             case CPF:
-                User userByCPF = UserService.getUser(searchField.getText());
-                if (userByCPF != null) {
-                    data.setAll(userByCPF);
-                }
+                List<User> userByCPF = UserService.getAllUsersByCPF(searchField.getText());
+                data.setAll(userByCPF);
                 break;
             case Username:
-                User userByUserName = UserService.getUserByUserName(searchField.getText());
-                if (userByUserName != null) {
-                    data.setAll(userByUserName);
-                }
+                List<User> userByUserName = UserService.getAllUsersByUsername(searchField.getText());
+                data.setAll(userByUserName);
                 break;
             case Nome:
-                List<User> usersByName = UserService.getUsersByName(searchField.getText());
+                List<User> usersByName = UserService.getAllUsersByName(searchField.getText());
                 data.setAll(usersByName);
                 break;
             case Email:
-                List<User> usersByEmail = UserService.getUsersByEmail(searchField.getText());
+                List<User> usersByEmail = UserService.getAllUsersByEmail(searchField.getText());
                 data.setAll(usersByEmail);
                 break;
             case Endereço:
-                List<User> usersByAddress = UserService.getUsersByAddress(searchField.getText());
+                List<User> usersByAddress = UserService.getAllUsersByAddress(searchField.getText());
                 data.setAll(usersByAddress);
                 break;
         }

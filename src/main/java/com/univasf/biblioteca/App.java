@@ -8,12 +8,14 @@ import javafx.application.Application;
 import com.univasf.biblioteca.util.DialogFactory;
 import com.univasf.biblioteca.util.DialogFactory.DialogType;
 import com.univasf.biblioteca.util.HibernateUtil;
+import com.univasf.biblioteca.util.Session;
 import com.univasf.biblioteca.view.FXMLResource;
 import com.univasf.biblioteca.view.Window;
 
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Session.setHostServices(this.getHostServices());
         Window.init(stage, FXMLResource.LOGIN);
         try {
             HibernateUtil.initialize();

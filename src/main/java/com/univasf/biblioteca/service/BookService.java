@@ -1,10 +1,12 @@
 package com.univasf.biblioteca.service;
 
 import java.util.List;
+
+import org.hibernate.Session;
 import org.hibernate.query.Query;
+
 import com.univasf.biblioteca.model.Book;
 import com.univasf.biblioteca.util.HibernateUtil;
-import org.hibernate.Session;
 
 public class BookService {
 
@@ -122,6 +124,21 @@ public class BookService {
         return status;
     }
 
+    public static List<Book> getAllBooksByISBN(String isbn) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM Book WHERE lower(CAST(ISBN AS text)) LIKE lower(:isbn)";
+            Query<Book> query = session.createQuery(hql, Book.class);
+            query.setParameter("isbn", "%" + isbn + "%");
+            List<Book> livros = query.list();
+            session.getTransaction().commit();
+            return livros;
+        } finally {
+            session.close();
+        }
+    }
+
     // ........................................................................//
     // Retorna uma lista de livros por titulo
     public static List<Book> getLivrosPorTitulo(String titulo) {
@@ -175,8 +192,8 @@ public class BookService {
 
     // ........................................................................//
     // Retorna quantas copias um livro tem disponivel
-    public int CopiasDisponiveis(Long ISBN) {
-        return BookService.getLivro(ISBN).getNumero_copias_totais() -
-                LoanService.getNumeroEmprestimosAbertosPorLivro(ISBN);
+    public static Long copiasDisponiveis(Book book) {
+        return book.getNumero_copias_totais() -
+                LoanService.getNumeroEmprestimosAbertosPorLivro(book.getISBN());
     }
 }
