@@ -16,7 +16,7 @@ module com.univasf.biblioteca {
     requires bcrypt;
     requires java.naming;
 
-    opens com.univasf.biblioteca.controller to javafx.fxml;
+    opens com.univasf.biblioteca.controller to javafx.fxml, javafx.graphics;
     opens com.univasf.biblioteca.model to org.hibernate.orm.core;
 
     exports com.univasf.biblioteca;

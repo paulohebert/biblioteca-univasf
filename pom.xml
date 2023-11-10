@@ -2,8 +2,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.univasf.biblioteca</groupId>
-    <artifactId>biblioteca</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>biblioteca-univasf</artifactId>
+    <version>1.0</version>
     <name>Biblioteca Univasf</name>
     <description>Sistema de Gerenciamento de Biblioteca</description>
     <packaging>jar</packaging>
@@ -70,29 +70,82 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>${mainClass}</mainClass>
-                        </manifest>
-                    </archive>
+                    <outputDirectory>${project.build.directory}/main</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.1</version>
+                <groupId>com.github.akman</groupId>
+                <artifactId>jlink-maven-plugin</artifactId>
+                <version>0.1.11</version>
                 <executions>
                     <execution>
+                        <id>jlink</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>jlink</goal>
                         </goals>
                         <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>${mainClass}</mainClass>
-                                </transformer>
-                            </transformers>
+                            <addmodules>
+                                <addmodule>java.base</addmodule>
+                                <addmodule>java.naming</addmodule>
+                                <addmodule>java.xml</addmodule>
+                                <addmodule>java.sql</addmodule>
+                                <addmodule>java.desktop</addmodule>
+                                <addmodule>java.logging</addmodule>
+                                <addmodule>java.management</addmodule>
+                                <addmodule>java.scripting</addmodule>
+                                <addmodule>jdk.unsupported</addmodule>
+                                <addmodule>jdk.localedata</addmodule>
+                                <addmodule>jdk.crypto.ec</addmodule>
+                            </addmodules>
+                            <modulepath>
+                                <dependencysets>
+                                    <dependencyset>
+                                        <includeoutput>true</includeoutput>
+                                        <excludeautomatic>true</excludeautomatic>
+                                    </dependencyset>
+                                </dependencysets>
+                            </modulepath>
+                            <stripdebug>true</stripdebug>
+                            <stripnativecommands>true</stripnativecommands>
+                            <noheaderfiles>true</noheaderfiles>
+                            <nomanpages>true</nomanpages>
+                            <compress>
+                                <compression>ZIP</compression>
+                            </compress>
+                            <stripdebug>true</stripdebug>
+                            <includelocales>
+                                <includelocale>en</includelocale>
+                                <includelocale>pt</includelocale>
+                            </includelocales>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>jpackage</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                        <configuration>
+                            <name>${project.name}</name>
+                            <description>${project.description}</description>
+                            <appVersion>${project.version}</appVersion>
+                            <vendor>${project.name}</vendor>
+                            <runtimeImage>${project.build.directory}/jlink/image</runtimeImage>
+                            <mainClass>${mainClass}</mainClass>
+                            <mainJar>${project.build.directory}/main/${project.artifactId}-${project.version}.jar</mainJar>
+                            <input>${project.build.directory}/jlink</input>
+                            <destination>${project.build.directory}/installer</destination>
+                            <javaOptions>
+                                <javaOption>-Dfile.encoding=UTF-8</javaOption>
+                            </javaOptions>
                         </configuration>
                     </execution>
                 </executions>
@@ -103,13 +156,6 @@
                 <version>0.0.8</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
-                    <stripDebug>true</stripDebug>
-                    <compress>2</compress>
-                    <noHeaderFiles>true</noHeaderFiles>
-                    <noManPages>true</noManPages>
-                    <launcher>bibliotecaUnivasf</launcher>
-                    <jlinkImageName>biblioteca</jlinkImageName>
-                    <jlinkZipName>bibliotecaZip</jlinkZipName>
                     <mainClass>${project.groupId}/${mainClass}</mainClass>
                 </configuration>
                 <executions>
@@ -122,4 +168,53 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>win</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <icon>src/main/resources/img/icon.ico</icon>
+                            <winDirChooser>true</winDirChooser>
+                            <winMenuGroup>Biblioteca</winMenuGroup>
+                            <winShortcut>true</winShortcut>
+                            <winMenu>true</winMenu>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <icon>src/main/resources/img/icon.png</icon>
+                            <linuxAppCategory>Utility</linuxAppCategory>
+                            <linuxMenuGroup>Utility</linuxMenuGroup>
+                            <linuxShortcut>true</linuxShortcut>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
