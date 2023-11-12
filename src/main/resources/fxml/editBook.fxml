@@ -31,7 +31,7 @@
             </HBox>
             <HBox spacing="10.0">
                <children>
-                  <MFXTextField fx:id="isbn" floatMode="BORDER" floatingText="ISBN" prefWidth="200.0" textLimit="13" disable="true">
+                  <MFXTextField fx:id="isbn" onAction="#loadBook" floatMode="BORDER" floatingText="ISBN" prefWidth="200.0" textLimit="13">
                      <styleClass>
                         <String fx:value="field" />
                         <String fx:value="field-border" />

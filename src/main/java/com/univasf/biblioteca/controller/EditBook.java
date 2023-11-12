@@ -11,6 +11,7 @@ import com.univasf.biblioteca.util.DialogFactory.DialogType;
 
 import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 
 public class EditBook implements Initializable {
     private Book book = null;
+    private static final PseudoClass INVALID_PSEUDO_CLASS = PseudoClass.getPseudoClass("invalid");
     private static final Locale locale = new Locale("pt", "BR");
 
     @FXML
@@ -63,7 +65,10 @@ public class EditBook implements Initializable {
 
     public void setBook(Book book) {
         this.book = book;
+
         dataInit();
+
+        isbn.setDisable(true);
     }
 
     @Override
@@ -74,43 +79,59 @@ public class EditBook implements Initializable {
     }
 
     @FXML
+    public void loadBook() {
+        Book book = BookService.getLivro(isbn.getText());
+        if (book != null) {
+            setBook(book);
+            isbn.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, false);
+        } else {
+            isbn.pseudoClassStateChanged(INVALID_PSEUDO_CLASS, true);
+        }
+    }
+
+    @FXML
     public void update(Event e) {
-        book.setTitulo(title.getText());
-        book.setAutor(author.getText());
-        book.setEditora(publisher.getText());
-        book.setDescricao(description.getText());
+        if (book != null) {
+            book.setTitulo(title.getText());
+            book.setAutor(author.getText());
+            book.setEditora(publisher.getText());
+            book.setDescricao(description.getText());
 
-        try {
-            int amountInt = Integer.parseInt(amount.getText());
-            book.setNumero_copias_totais(amountInt);
-        } catch (NumberFormatException amoutErr) {
+            try {
+                int amountInt = Integer.parseInt(amount.getText());
+                book.setNumero_copias_totais(amountInt);
+            } catch (NumberFormatException amoutErr) {
+                DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
+                        "O Número de Cópias deve ser um valor numérico", e);
+                return;
+            }
+
+            book.setCategoria(category.getText());
+
+            try {
+                int pageCountInt = Integer.parseInt(pageCount.getText());
+                book.setNumero_paginas(pageCountInt);
+            } catch (NumberFormatException amoutErr) {
+                DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
+                        "O Número de Páginas deve ser um valor numérico", e);
+                return;
+            }
+
+            book.setAno_publicacao(publishedDate.getValue());
+
+            try {
+                BookService.updateLivro(book);
+
+                DialogFactory.showDialog(DialogType.INFO, "Atualização do livro",
+                        "O Livro foi atualizado com Sucesso");
+                close(e);
+            } catch (Exception err) {
+                DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
+                        "Não foi possível atualizar o Livro", e);
+            }
+        } else {
             DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
-                    "O Número de Cópias deve ser um valor numérico", e);
-            return;
-        }
-
-        book.setCategoria(category.getText());
-
-        try {
-            int pageCountInt = Integer.parseInt(pageCount.getText());
-            book.setNumero_paginas(pageCountInt);
-        } catch (NumberFormatException amoutErr) {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
-                    "O Número de Páginas deve ser um valor numérico", e);
-            return;
-        }
-
-        book.setAno_publicacao(publishedDate.getValue());
-
-        try {
-            BookService.updateLivro(book);
-
-            DialogFactory.showDialog(DialogType.INFO, "Atualização do livro",
-                    "O Livro foi atualizado com Sucesso");
-            close(e);
-        } catch (Exception err) {
-            DialogFactory.showDialog(DialogType.ERROR, "Erro na atualização do livro",
-                    "Não foi possível atualizar o Livro");
+                    "Informe o ISBN do Livro", e);
         }
     }
 

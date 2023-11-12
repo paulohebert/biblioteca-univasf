@@ -121,12 +121,22 @@ public class AdminPanel implements Initializable {
     }
 
     @FXML
+    public void editBook() throws IOException {
+        Window.create(FXMLResource.EDIT_BOOK, 700, 500);
+    }
+
+    @FXML
+    public void editUser() throws IOException {
+        Window.create(FXMLResource.EDIT_USER, 595, 400);
+    }
+
+    @FXML
     public void sourceCode() throws IOException {
         Session.getHostServices().showDocument("https://github.com/paulohebert/biblioteca-univasf");
     }
 
     @FXML
     public void about() throws IOException {
-        Window.create(FXMLResource.ABOUT, 570, 320);
+        Window.create(FXMLResource.ABOUT, 600, 370);
     }
 }

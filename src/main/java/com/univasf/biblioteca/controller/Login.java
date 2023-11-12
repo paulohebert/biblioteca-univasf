@@ -95,4 +95,9 @@ public class Login implements Initializable {
             DialogFactory.showDialog(DialogType.ERROR, "Falha no login", "A Senha ou CPF/Username são Inválidos");
         }
     }
+
+    @FXML
+    public void signUp(Event e) throws IOException {
+        Window.create(FXMLResource.ADD_USER, 595, 400);
+    }
 }

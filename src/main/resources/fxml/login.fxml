@@ -33,7 +33,7 @@
                   <HBox alignment="TOP_CENTER" spacing="40.0">
                      <children>
                         <MFXButton buttonType="RAISED" defaultButton="true" depthLevel="LEVEL1" onAction="#signIn" styleClass="button-primary" text="ENTRAR"/>
-                        <MFXButton styleClass="button-bordered" text="ESQUECI A SENHA"/>
+                        <MFXButton onAction="#signUp" styleClass="button-bordered" text="CADASTRE-SE"/>
                      </children>
                   </HBox>
                </VBox>

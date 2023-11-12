@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="320.0" prefWidth="570.0" style="-fx-background-color: -secondary-gradient;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: -secondary-gradient;" stylesheets="@../css/styles.css"
+   xmlns="http://javafx.com/javafx/20.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.About">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -20,7 +23,8 @@
                   <MFXFontIcon description="fas-circle-info" size="20">
                      <color>
                         <Color red="0.9333333373069763" green="0.9333333373069763" blue="0.9333333373069763" />
-                     </color></MFXFontIcon>
+                     </color>
+                  </MFXFontIcon>
                   <Text fill="#eeeeee" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Sobre">
                      <font>
                         <Font size="17.0" />
@@ -28,16 +32,16 @@
                   </Text>
                </children>
             </HBox>
-            <VBox alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Gerenciamento de Biblioteca">
+                  <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de Gerenciamento de Biblioteca">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Text fill="#eeeeee" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="O objetivo deste projeto é desenvolver um sistema de gerenciamento de biblioteca para desktop que permita aos usuários catalogar, pesquisar e gerenciar livros, periódicos e outros recursos bibliográficos." textAlignment="JUSTIFY" wrappingWidth="400.0">
+                  <Text fill="#eeeeee" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="O objetivo deste projeto é desenvolver um sistema de gerenciamento de biblioteca para desktop que permita aos usuários catalogar, pesquisar e gerenciar livros, periódicos e outros recursos bibliográficos." textAlignment="JUSTIFY" wrappingWidth="500.0">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="17.0" />
                      </font>
                   </Text>
                </children>
@@ -54,6 +58,15 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
+                  <HBox alignment="TOP_CENTER" spacing="4.0">
+                     <children>
+                        <Hyperlink text="Gabriel Menezes" onAction="#openLink" userData="https://github.com/GabrielMenezesCarvalho" textFill="#2196f3" />
+                        <Hyperlink text="Gustavo Souza" onAction="#openLink" userData="https://github.com/gutsavosouza" textFill="#2196f3" />
+                        <Hyperlink text="Paulo Hebert" onAction="#openLink" userData="https://github.com/paulohebert" textFill="#2196f3" />
+                        <Hyperlink text="Mateus de Almeida" onAction="#openLink" userData="https://github.com/mateusalmeiida" textFill="#2196f3" />
+                        <Hyperlink text="Ualace Henrique" onAction="#openLink" userData="https://github.com/UalaceCafe" textFill="#2196f3" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

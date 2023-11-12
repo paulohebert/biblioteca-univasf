@@ -283,10 +283,18 @@ public class Loans implements Initializable {
                 data.setAll(loansByCPF);
                 break;
             case ISBN:
-                List<Loan> loansByISBN = LoanService.getAllLoansByISBN(
-                        searchField.getText(),
-                        outstandingLoan.isSelected());
-                data.setAll(loansByISBN);
+                if (user.getTipoAdministrador()) {
+                    List<Loan> loansByISBN = LoanService.getAllLoansByISBN(
+                            searchField.getText(),
+                            outstandingLoan.isSelected());
+                    data.setAll(loansByISBN);
+                } else {
+                    List<Loan> loansByISBN = LoanService.getAllUserLoansByISBN(
+                            searchField.getText(),
+                            user.getCpf(),
+                            outstandingLoan.isSelected());
+                    data.setAll(loansByISBN);
+                }
                 break;
         }
 

@@ -1,8 +1,12 @@
 package com.univasf.biblioteca.controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.univasf.biblioteca.model.User;
 import com.univasf.biblioteca.service.UserService;
 import com.univasf.biblioteca.util.DialogFactory;
+import com.univasf.biblioteca.util.Session;
 import com.univasf.biblioteca.util.DialogFactory.DialogType;
 
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -10,10 +14,11 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class AddUser {
+public class AddUser implements Initializable {
     @FXML
     private MFXTextField cpf;
     @FXML
@@ -30,6 +35,15 @@ public class AddUser {
     private MFXPasswordField password2;
     @FXML
     private MFXToggleButton admin;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        if (Session.getUser() == null) {
+            admin.setSelected(false);
+            admin.setVisible(false);
+            admin.setManaged(false);
+        }
+    }
 
     @FXML
     public void register(Event e) {
@@ -66,7 +80,7 @@ public class AddUser {
             close(e);
         } catch (Exception err) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro ao Cadastrar Usuário",
-                    "Não foi possível cadastrar o usuário");
+                    "Não foi possível cadastrar o usuário", e);
         }
     }
 

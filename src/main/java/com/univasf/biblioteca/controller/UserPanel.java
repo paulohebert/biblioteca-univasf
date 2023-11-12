@@ -71,11 +71,17 @@ public class UserPanel implements Initializable {
 
     @FXML
     public void loadBooksPanel(Event e) throws IOException {
+        if (toggleGroup.getSelectedToggle() != booksBtn) {
+            toggleGroup.selectToggle(booksBtn);
+        }
         Window.changeNode(main, FXMLResource.BOOKS);
     }
 
     @FXML
     public void loadLoansPanel(Event e) throws IOException {
+        if (toggleGroup.getSelectedToggle() != loansBtn) {
+            toggleGroup.selectToggle(loansBtn);
+        }
         Window.changeNode(main, FXMLResource.LOANS);
     }
 
@@ -89,4 +95,13 @@ public class UserPanel implements Initializable {
         Window.create(FXMLResource.ADD_LOAN, 700, 400);
     }
 
+    @FXML
+    public void sourceCode() throws IOException {
+        Session.getHostServices().showDocument("https://github.com/paulohebert/biblioteca-univasf");
+    }
+
+    @FXML
+    public void about() throws IOException {
+        Window.create(FXMLResource.ABOUT, 600, 370);
+    }
 }

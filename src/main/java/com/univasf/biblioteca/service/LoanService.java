@@ -199,6 +199,25 @@ public class LoanService {
         }
     }
 
+    public static List<Loan> getAllUserLoansByISBN(String isbn, Long cpf, boolean isOutstandingLoan) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM Loan WHERE lower(CAST(livro.ISBN AS text)) LIKE lower(:isbn) AND usuario.cpf = :cpf";
+            if (isOutstandingLoan) {
+                hql += " AND data_devolucao IS NULL";
+            }
+            Query<Loan> query = session.createQuery(hql, Loan.class);
+            query.setParameter("isbn", "%" + isbn + "%");
+            query.setParameter("cpf", cpf);
+            List<Loan> loans = query.list();
+            session.getTransaction().commit();
+            return loans;
+        } finally {
+            session.close();
+        }
+    }
+
     // ........................................................................//
     // Retorna uma lista de todos os emprestimos relacionados a um nome de usuario
     public static List<Loan> getEmprestimosNomeUsuario(String nome_usuario) {

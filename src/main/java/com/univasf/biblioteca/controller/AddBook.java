@@ -122,7 +122,7 @@ public class AddBook implements Initializable {
             close(e);
         } catch (Exception err) {
             DialogFactory.showDialog(DialogType.ERROR, "Erro no Cadastro do livro",
-                    "Não foi possível cadastrar o Livro");
+                    "Não foi possível cadastrar o Livro", e);
         }
     }
 
