@@ -70,7 +70,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/main</outputDirectory>
+                    <outputDirectory>${project.build.directory}/build</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -106,6 +106,8 @@
                                     </dependencyset>
                                 </dependencysets>
                             </modulepath>
+                            <libsdir>${project.build.directory}/build/libs</libsdir>
+                            <modsdir>${project.build.directory}/build/mods</modsdir>
                             <stripdebug>true</stripdebug>
                             <stripnativecommands>true</stripnativecommands>
                             <noheaderfiles>true</noheaderfiles>
@@ -140,8 +142,8 @@
                             <vendor>${project.name}</vendor>
                             <runtimeImage>${project.build.directory}/jlink/image</runtimeImage>
                             <mainClass>${mainClass}</mainClass>
-                            <mainJar>${project.build.directory}/main/${project.artifactId}-${project.version}.jar</mainJar>
-                            <input>${project.build.directory}/jlink</input>
+                            <mainJar>${project.build.directory}/build/${project.artifactId}-${project.version}.jar</mainJar>
+                            <input>${project.build.directory}/build</input>
                             <destination>${project.build.directory}/installer</destination>
                             <javaOptions>
                                 <javaOption>-Dfile.encoding=UTF-8</javaOption>
