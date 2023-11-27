@@ -35,9 +35,9 @@ docker compose up -d
 
 `http://localhost:5050/`
 
-`E-mail:` pgadmin4@pgadmin.org
+`E-mail: pgadmin4@pgadmin.org`
 
-`Senha:` admin
+`Senha: admin`
 
 
 ### Desligar Container PostgreSQL
