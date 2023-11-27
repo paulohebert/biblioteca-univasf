@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import com.univasf.biblioteca.App;
 
-import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
-import io.github.palexdev.materialfx.css.themes.Themes;
+import io.github.palexdev.materialfx.theming.JavaFXThemes;
+import io.github.palexdev.materialfx.theming.MaterialFXStylesheets;
+import io.github.palexdev.materialfx.theming.UserAgentBuilder;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -53,7 +54,14 @@ public class Window {
 
         Parent root = loadFXML(fxml);
         Scene scene = new Scene(root, width, height);
-        MFXThemeManager.addOn(scene, Themes.DEFAULT);
+
+        UserAgentBuilder.builder()
+                .themes(JavaFXThemes.MODENA)
+                .themes(MaterialFXStylesheets.forAssemble(false))
+                .setDeploy(true)
+                .setResolveAssets(true)
+                .build()
+                .setGlobal();
 
         setTitle(fxml);
         mainStage.getIcons().add(new Image(App.class.getResourceAsStream("/img/icon.png")));
@@ -86,7 +94,6 @@ public class Window {
         Stage newStage = new Stage();
 
         Scene scene = new Scene(root, width, height);
-        MFXThemeManager.addOn(scene, Themes.DEFAULT);
 
         newStage.setScene(scene);
         newStage.setTitle(title);
