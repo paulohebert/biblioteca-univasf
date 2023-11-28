@@ -125,7 +125,7 @@ public class Users implements Initializable {
                             "O Usuário foi excluído com sucesso");
                 } else {
                     DialogFactory.showDialog(DialogType.ERROR, "Excluir Usuário",
-                            "Não foi possível excluir o usuário");
+                            "\n\f\f\fNão foi possível excluir o usuário.\n\n\t\f\fCertifique que o Usuário\n não possua histórico de empréstimo");
                 }
             };
 

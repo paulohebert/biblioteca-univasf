@@ -10,6 +10,29 @@ import com.univasf.biblioteca.util.HibernateUtil;
 
 public class BookService {
 
+    public static class TopBooksDTO {
+        private String title;
+        private Long numLoans, isbn;
+
+        public TopBooksDTO(String title, Long isbn, Long numLoans) {
+            this.title = title;
+            this.isbn = isbn;
+            this.numLoans = numLoans;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Long getISBN() {
+            return isbn;
+        }
+
+        public Long getNumLoans() {
+            return numLoans;
+        }
+    }
+
     // ........................................................................//
     // Salva um livro no banco de dados
     public static void saveLivro(Book livro) {
@@ -124,6 +147,40 @@ public class BookService {
         return status;
     }
 
+    public static Long getBookCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(*) FROM Book";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long books = query.uniqueResult();
+            return books;
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getBookCopyCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT SUM(numero_copias_totais) FROM Book";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long copies = query.uniqueResult();
+            return copies != null ? copies : 0L;
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getBookAvailableCount() {
+        return BookService.getBookCopyCount() - LoanService.getOutstandingLoanCount();
+    }
+
     public static List<Book> getAllBooksByISBN(String isbn) {
         Session session = HibernateUtil.getSession();
         try {
@@ -183,8 +240,28 @@ public class BookService {
             Query<Book> query = session.createQuery(hql, Book.class);
             query.setParameter("categoria", "%" + categoria + "%");
             List<Book> livros = query.list();
-            session.getTransaction().commit();
             return livros;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<TopBooksDTO> getTopBooks() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            Query<TopBooksDTO> query = session.createQuery(
+                    "SELECT new TopBooksDTO(b.titulo, b.ISBN, COUNT(l)) " +
+                            "FROM Book b " +
+                            "LEFT JOIN Loan l ON b.ISBN = l.livro.ISBN " +
+                            "GROUP BY b.ISBN, b.titulo " +
+                            "ORDER BY COUNT(l) DESC",
+                    TopBooksDTO.class);
+
+            query.setMaxResults(100);
+
+            return query.getResultList();
         } finally {
             session.close();
         }

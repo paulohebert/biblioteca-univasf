@@ -126,18 +126,46 @@ public class LoanService {
         return status;
     }
 
-    // ........................................................................//
-    // Retorna uma lista de todos os emprestimos relacionados a um cpf
-    public static List<Loan> getEmprestimosPorCPF(Long cpf) {
+    public static Long getNumLoansByCPF(Long cpf) {
         Session session = HibernateUtil.getSession();
         try {
             session.beginTransaction();
-            String hql = "FROM Loan WHERE usuario.cpf = :cpf";
+            String hql = "SELECT COUNT(*) FROM Loan WHERE usuario.cpf = :cpf";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("cpf", cpf);
+            return query.uniqueResult();
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getNumOutstandingLoanByCPF(Long cpf) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(*) FROM Loan WHERE usuario.cpf = :cpf AND data_devolucao IS NULL";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            query.setParameter("cpf", cpf);
+            return query.uniqueResult();
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Loan> getLatestLoansByCPF(Long cpf) {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "FROM Loan WHERE usuario.cpf = :cpf ORDER BY data_emprestimo DESC";
             Query<Loan> query = session.createQuery(hql, Loan.class);
             query.setParameter("cpf", cpf);
-            List<Loan> emprestimos = query.list();
-            session.getTransaction().commit();
-            return emprestimos;
+            query.setMaxResults(40);
+            List<Loan> loans = query.getResultList();
+            return loans;
         } finally {
             session.close();
         }
@@ -282,6 +310,36 @@ public class LoanService {
             List<Loan> emprestimos = query.list();
             session.getTransaction().commit();
             return emprestimos;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getLoanCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(*) FROM Loan";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long loans = query.uniqueResult();
+            return loans;
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getOutstandingLoanCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(*) FROM Loan WHERE data_devolucao IS NULL";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long loans = query.uniqueResult();
+            return loans;
+        } catch (Exception err) {
+            return 0L;
         } finally {
             session.close();
         }

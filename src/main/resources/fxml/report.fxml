@@ -1,190 +1,314 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
+<VBox VBox.vgrow="ALWAYS"
+    xmlns="http://javafx.com/javafx/20.0.1"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.univasf.biblioteca.controller.Report">
     <children>
-        <VBox HBox.hgrow="ALWAYS">
+        <VBox>
             <children>
-                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Text>
-                <HBox spacing="20.0">
+                <HBox>
                     <children>
-                        <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="147">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DISPONÍVEIS">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                        <VBox alignment="CENTER_LEFT" layoutX="415.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="53">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRESTADOS">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </HBox>
-                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Text>
-                <HBox layoutX="10.0" layoutY="213.0" spacing="20.0">
-                    <children>
-                        <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="512">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                        <VBox alignment="CENTER_LEFT" layoutX="415.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="17">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SUSPENSOS">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                </HBox>
-                <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Últimos Empréstimos">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Text>
-                <VBox styleClass="box" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LISTA">
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
                             <font>
-                                <Font size="55.0" />
+                                <Font size="27.0" />
                             </font>
                         </Text>
-                    </children>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                    </padding>
-                </VBox>
-            </children>
-            <HBox.margin>
-                <Insets right="10.0" />
-            </HBox.margin>
-        </VBox>
-        <VBox layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
-            <children>
-                <HBox spacing="20.0">
-                    <children>
-                        <VBox alignment="CENTER_LEFT" layoutX="580.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="200">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
+                                <MFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" onAction="#update" rippleRadius="10.0" styleClass="button-small">
+                                    <graphic>
+                                        <MFXFontIcon color="#eeeeee" description="fas-rotate" size="17" />
+                                    </graphic>
+                                </MFXButton>
+                                <MFXButton alignment="CENTER" rippleRadius="10.0" onAction="#help" styleClass="button-small" text="AJUDA">
+                                    <graphic>
+                                        <MFXFontIcon color="#eeeeee" description="fas-circle-question" />
+                                    </graphic>
+                                </MFXButton>
                             </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
-                        <VBox alignment="CENTER_LEFT" layoutX="745.0" layoutY="10.0" styleClass="box" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="14">
-                                    <font>
-                                        <Font size="55.0" />
-                                    </font>
-                                </Text>
-                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RESERVADOS">
-                                    <font>
-                                        <Font size="17.0" />
-                                    </font>
-                                </Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                            </padding>
-                        </VBox>
+                        </HBox>
                     </children>
-                    <padding>
-                        <Insets top="37.0" />
-                    </padding>
                 </HBox>
-                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros Populares">
-                    <font>
-                        <Font size="27.0" />
-                    </font>
-                </Text>
-                <VBox styleClass="box" VBox.vgrow="ALWAYS">
+                <HBox spacing="10.0">
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LISTA">
+                        <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text fx:id="numBooks" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="55.0" />
+                                    </font>
+                                </Text>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nº DE LIVROS">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text fx:id="numBooksCopies" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="55.0" />
+                                    </font>
+                                </Text>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nº DE EXEMPLARES">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text fx:id="numBooksAvailable" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="55.0" />
+                                    </font>
+                                </Text>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="DISPONÍVEIS">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text fx:id="numOutstandingLoan" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="55.0" />
+                                    </font>
+                                </Text>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRÉSTIMOS ATIVOS">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Text fx:id="numLoans" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font size="55.0" />
+                                    </font>
+                                </Text>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL DE EMPRÉSTIMOS">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+            <children>
+                <VBox>
+                    <children>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários">
                             <font>
-                                <Font size="55.0" />
+                                <Font size="27.0" />
                             </font>
                         </Text>
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Text fx:id="numUsers" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                            <font>
+                                                <Font size="55.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
+                                            <font>
+                                                <Font size="17.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                                <VBox alignment="CENTER_LEFT" styleClass="box" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Text fx:id="numActiveUsers" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0">
+                                            <font>
+                                                <Font size="55.0" />
+                                            </font>
+                                        </Text>
+                                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="ATIVOS">
+                                            <font>
+                                                <Font size="17.0" />
+                                            </font>
+                                        </Text>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Histórico de Usuário">
+                            <font>
+                                <Font size="27.0" />
+                            </font>
+                        </Text>
+                        <VBox spacing="10.0" styleClass="box" VBox.vgrow="ALWAYS">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <MFXFontIcon color="whitesmoke" description="fas-id-badge" size="40" />
+                                        <MFXTextField fx:id="searchField" floatMode="DISABLED" maxWidth="10000.0" promptText="CPF" HBox.hgrow="ALWAYS">
+                                            <trailingIcon>
+                                                <MFXButton contentDisplay="GRAPHIC_ONLY" defaultButton="true" onAction="#search">
+                                                    <graphic>
+                                                        <MFXFontIcon description="fas-magnifying-glass" />
+                                                    </graphic>
+                                                </MFXButton>
+                                            </trailingIcon>
+                                            <styleClass>
+                                                <String fx:value="field" />
+                                                <String fx:value="field-border" />
+                                                <String fx:value="field-btn" />
+                                            </styleClass>
+                                        </MFXTextField>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                    <children>
+                                        <VBox maxWidth="170.0" prefWidth="170.0">
+                                            <children>
+                                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="NOME" />
+                                                <Label fx:id="name" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="17.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox maxWidth="140.0" prefWidth="140.0">
+                                            <children>
+                                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="CPF" />
+                                                <Label fx:id="cpf" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="17.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox maxWidth="175.0" prefWidth="175.0">
+                                            <children>
+                                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="E-MAIL" />
+                                                <Label fx:id="email" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="17.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox spacing="30.0">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL DE EMPRÉSTIMOS" />
+                                                <Label fx:id="numUserLoans" text="--" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="17.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRÉSTIMOS ATIVOS" />
+                                                <Label fx:id="numUserOutstandingLoan" text="--" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="17.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="ÚLTIMOS EMPRÉSTIMOS" />
+                                <MFXListView fx:id="latestLoans" maxHeight="10000.0" maxWidth="10000.0" styleClass="list" VBox.vgrow="ALWAYS" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
                     </children>
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                    </padding>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <children>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros Populares">
+                            <font>
+                                <Font size="27.0" />
+                            </font>
+                        </Text>
+                        <MFXListView fx:id="topBooks" maxHeight="10000.0" maxWidth="10000.0" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                            <styleClass>
+                                <String fx:value="list" />
+                                <String fx:value="box" />
+                            </styleClass>
+                        </MFXListView>
+                    </children>
+                </VBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <children>
+                        <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários Frequentes">
+                            <font>
+                                <Font size="27.0" />
+                            </font>
+                        </Text>
+                        <MFXListView fx:id="topUsers" maxHeight="10000.0" maxWidth="10000.0" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                            <styleClass>
+                                <String fx:value="list" />
+                                <String fx:value="box" />
+                            </styleClass>
+                        </MFXListView>
+                    </children>
                 </VBox>
             </children>
-            <HBox.margin>
-                <Insets left="10.0" />
-            </HBox.margin>
-        </VBox>
+        </HBox>
     </children>
-</HBox>
+</VBox>

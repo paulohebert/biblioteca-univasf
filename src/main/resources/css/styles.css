@@ -81,3 +81,30 @@
 #table .mfx-ripple-generator {
     -mfx-paused: true;
 }
+
+.list .mfx-list-cell,
+.list .virtual-flow,
+.list .virtual-flow .mfx-list-cell:hover,
+.list .virtual-flow .mfx-list-cell:selected   {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+.list MFXFontIcon  {
+    -mfx-color: whitesmoke;
+}
+
+.list Label {
+    -fx-font-family: "Open Sans Regular";
+	-fx-text-fill: whitesmoke;
+    -fx-pref-width: 1000000;
+}
+
+.list Text {
+    -fx-fill: whitesmoke;
+    -fx-font-smoothing-type: lcd;
+}
+
+.list .virtual-flow .mfx-list-cell .mfx-ripple-generator {
+	-mfx-paused: true;
+}

@@ -68,15 +68,6 @@
                   <MFXFontIcon description="fas-plus" size="17" />
                </graphic>
             </MFXButton>
-            <MFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" depthLevel="LEVEL1">
-               <styleClass>
-                  <String fx:value="button-circle" />
-                  <String fx:value="button-ripple-red" />
-               </styleClass>
-               <graphic>
-                  <MFXFontIcon description="fas-trash-can" size="17" />
-               </graphic>
-            </MFXButton>
          </children>
       </HBox>
       <VBox spacing="4.0" VBox.vgrow="ALWAYS">

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="414.0" prefWidth="700.0" style="-fx-background-color: whitesmoke;" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <MFXFontIcon description="fas-circle-question" size="20" />
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="AJUDA">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Livros">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Separator prefWidth="200.0" />
+                  <VBox spacing="7.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nº DE LIVROS:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa o número de livros distintos cadastrados" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Nº DE EXEMPLARES:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa o número de exemplares que atualmente não possuem empréstimos ativos" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="DISPONÍVEIS:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa a quantidade atual de exemplares prontos para empréstimo" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRÉSTIMOS ATIVOS:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa a quantidade de livros atualmente emprestados" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL DE EMPRÉSTIMOS:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa o número total de empréstimos realizados na biblioteca" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="LIVROS POPULARES:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa os livros com o maior número de empréstimos" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuários">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+                  <Separator prefWidth="200.0" />
+                  <VBox spacing="7.0">
+                     <children>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa a quantidade total de usuários cadastrados" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="ATIVOS:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa o número de usuários com empréstimos ativos" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="HISTÓRICO DE USUÁRIO:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mostra os últimos empréstimos realizados pelo usuário, incluindo a quantidade total de empréstimos e empréstimos ativos, juntamente com informações básicas do usuário" textAlignment="JUSTIFY" wrappingWidth="500.0" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Text fill="#19749c" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="USUÁRIOS FREQUENTES:" />
+                              <Text fontSmoothingType="LCD" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Representa os usuários com o maior número de empréstimos" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

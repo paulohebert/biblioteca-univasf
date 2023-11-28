@@ -1,14 +1,40 @@
 package com.univasf.biblioteca.service;
 
 import java.util.List;
+
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import com.univasf.biblioteca.model.User;
 import com.univasf.biblioteca.util.HibernateUtil;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import org.hibernate.Session;
 
 public class UserService {
+
+    public static class TopUsersDTO {
+        private String name;
+        private Long numLoans, cpf;
+
+        public TopUsersDTO(String name, Long cpf, Long numLoans) {
+            this.name = name;
+            this.numLoans = numLoans;
+            this.cpf = cpf;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Long getNumLoans() {
+            return numLoans;
+        }
+
+        public Long getCPF() {
+            return cpf;
+        }
+    }
+
     public static void saveUser(User user) {
         Session session = HibernateUtil.getSession();
         try {
@@ -27,6 +53,8 @@ public class UserService {
             User user = session.get(User.class, cpf);
             session.getTransaction().commit();
             return user;
+        } catch (Exception err) {
+            return null;
         } finally {
             session.close();
         }
@@ -51,6 +79,36 @@ public class UserService {
             User user = query.getSingleResult();
             session.getTransaction().commit();
             return user;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getUserCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(*) FROM User";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long users = query.uniqueResult();
+            return users;
+        } catch (Exception err) {
+            return 0L;
+        } finally {
+            session.close();
+        }
+    }
+
+    public static Long getActiveUserCount() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+            String hql = "SELECT COUNT(DISTINCT usuario) FROM Loan WHERE data_devolucao IS NULL";
+            Query<Long> query = session.createQuery(hql, Long.class);
+            Long users = query.uniqueResult();
+            return users;
+        } catch (Exception err) {
+            return 0L;
         } finally {
             session.close();
         }
@@ -197,6 +255,27 @@ public class UserService {
             session.close();
         }
         return status;
+    }
+
+    public static List<TopUsersDTO> getTopUsers() {
+        Session session = HibernateUtil.getSession();
+        try {
+            session.beginTransaction();
+
+            Query<TopUsersDTO> query = session.createQuery(
+                    "SELECT new TopUsersDTO(u.nome, u.cpf, COUNT(l)) " +
+                            "FROM User u " +
+                            "LEFT JOIN Loan l ON u.cpf = l.usuario.cpf " +
+                            "GROUP BY u.cpf, u.nome " +
+                            "ORDER BY COUNT(l) DESC",
+                    TopUsersDTO.class);
+
+            query.setMaxResults(100);
+
+            return query.getResultList();
+        } finally {
+            session.close();
+        }
     }
 
     public static boolean checkPassword(String passwordToCheck, User user) {

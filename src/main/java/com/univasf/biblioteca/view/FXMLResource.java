@@ -16,7 +16,8 @@ public enum FXMLResource {
     USERS("/fxml/users.fxml", "Usuários"),
     LOANS("/fxml/loans.fxml", "Empréstimos"),
     CONFIG("/fxml/config.fxml", "Configuração"),
-    ABOUT("/fxml/about.fxml", "Sobre");
+    ABOUT("/fxml/about.fxml", "Sobre"),
+    HELP("/fxml/help.fxml", "Ajuda");
 
     private String path;
     private String title;

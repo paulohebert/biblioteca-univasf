@@ -113,7 +113,7 @@ public class Books implements Initializable {
                             "O Livro foi excluído com sucesso");
                 } else {
                     DialogFactory.showDialog(DialogType.ERROR, "Excluir Livro",
-                            "Não foi possível excluir o livro");
+                            "\n\tNão foi possível excluir o livro.\n\n\t\f\f\fCertifique que o Livro\n não possua histórico de empréstimo");
                 }
             };
 
