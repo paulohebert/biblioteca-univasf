@@ -5,14 +5,13 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/biblioteca</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5430/biblioteca</property>
         <property name="hibernate.connection.username">admin</property>
         <property name="hibernate.connection.password">admin</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <property name="hibernate.hbm2ddl.import_files">import.sql</property>
 
         <mapping class="com.univasf.biblioteca.model.Book"/>
         <mapping class="com.univasf.biblioteca.model.User"/>

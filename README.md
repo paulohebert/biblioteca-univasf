@@ -9,7 +9,7 @@
 - [x] Empréstimo de Livros (rastrear as datas de empréstimo e devolução)
 - [x] Devolução de Livros
 - [x] Editar e Excluir informações de usuários
-- [ ] Relatórios de livros emprestados, reservados e disponíveis, bem como o histórico de empréstimos de um usuário
+- [x] Relatórios de livros emprestados e disponíveis, bem como o histórico de empréstimos de um usuário
 - [x] Integração com Google Books
 
 ## Pré Requisitos
@@ -39,6 +39,15 @@ docker compose up -d
 
 `Senha: admin`
 
+### Conexão com o Banco PostgreSQL
+
+`Nome do Banco: biblioteca`
+
+`Usuário: admin`
+
+`Senha: admin`
+
+`Porta: 5430`
 
 ### Desligar Container PostgreSQL
 ```sh

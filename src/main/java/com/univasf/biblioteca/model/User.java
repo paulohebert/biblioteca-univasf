@@ -28,11 +28,15 @@ public class User {
     }
 
     public User(Long cpf, String nome, String nome_usuario, String senha,
-            Boolean tipo_administrador) {
+            Boolean tipo_administrador, Boolean hashPassword) {
         this.cpf = cpf;
         this.nome = nome;
         this.nome_usuario = nome_usuario;
-        this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+        if (hashPassword) {
+            this.senha = BCrypt.withDefaults().hashToString(12, senha.toCharArray());
+        } else {
+            this.senha = senha;
+        }
         this.tipo_administrador = tipo_administrador;
     }
 
